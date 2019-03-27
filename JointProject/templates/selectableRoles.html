@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Photo Bank</h1>
+   <header id="main-header">
+		<nav>
+            {% block sidebar %}
+                <ul>
+                    <li><a class="site-name" href="{% url 'selectableRoles' %}">SELECCIONAR_ROLS</a></li>
+                        <li><a class="site-name" href="{% url 'roomManager' %}"> GESTOR_SALA</a></li>
+                        <li><a class="site-name" href="{% url 'ceo' %}">CEO </a></li>
+                        <li><a class="site-name" href="{% url 'worker' %}">OPERARIS </a></li>
+                        <li><a class="site-name" href="{% url 'maintenance' %}">MANTENIMENT </a></li>
+                </ul>
+            {% endblock %}
+        </nav>
+   </header>
+</body>
+</html>

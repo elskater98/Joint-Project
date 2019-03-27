@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="7e9d1003-b218-47a2-bf2c-3af803a02471" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/application/migrations/0002_producte.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/0001_initial.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/application/models.py" afterDir="false" />
+=======
+    <list default="true" id="dc4fd365-da42-4575-a624-ed2855dd2dfc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/application/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/availableActions.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/ceo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/generateTasks.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/maintenance.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/manifest.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/roomManager.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/selectableRoles.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/verify-modify_proposedDistribution.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/workers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JointProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/JointProject/urls.py" afterDir="false" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,6 +29,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
   </component>
@@ -27,15 +43,35 @@
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
+=======
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/JointProject/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
               <caret line="24" column="29" lean-forward="true" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="110">
+              <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
             </state>
           </provider>
         </entry>
@@ -48,16 +84,27 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/application/models.py" />
         <option value="$PROJECT_DIR$/application/admin.py" />
+=======
+        <option value="$PROJECT_DIR$/application/urls.py" />
+        <option value="$PROJECT_DIR$/JointProject/urls.py" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< HEAD
     <option name="x" value="775" />
     <option name="y" value="67" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
+=======
+    <option name="x" value="-8" />
+    <option name="width" value="1040" />
+    <option name="height" value="1110" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -81,8 +128,17 @@
             <path>
               <item name="JointProject" type="b2602c69:ProjectViewProjectNode" />
               <item name="JointProject" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
               <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="migrations" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="JointProject" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JointProject" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JointProject" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
             </path>
           </expand>
           <select />
@@ -118,7 +174,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="JointProject.settings" />
       </envs>
+<<<<<<< HEAD
       <option name="SDK_HOME" value="C:\Users\Francesc Contreras\Documents\Virtualenv\modelproces_env\Scripts\python.exe" />
+=======
+      <option name="SDK_HOME" value="" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -140,6 +200,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="7e9d1003-b218-47a2-bf2c-3af803a02471" name="Default Changelist" comment="" />
       <created>1553677765421</created>
       <option name="number" value="Default" />
@@ -148,10 +209,19 @@
       <workItem from="1553677766777" duration="2420000" />
       <workItem from="1553684148557" duration="70000" />
       <workItem from="1553690891356" duration="1652000" />
+=======
+      <changelist id="dc4fd365-da42-4575-a624-ed2855dd2dfc" name="Default Changelist" comment="" />
+      <created>1553679945163</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1553679945163</updated>
+      <workItem from="1553679946561" duration="329000" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="4142000" />
   </component>
   <component name="ToolWindowManager">
@@ -164,10 +234,31 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32936078" />
+=======
+    <option name="totallyTimeSpent" value="329000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1653" height="896" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15630884" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Python Console" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32984293" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="manage.py@JointProject" order="9" weight="0.32936078" />
@@ -180,12 +271,20 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info anchor="right" id="Database" order="4" />
+=======
+      <window_info anchor="right" id="SciView" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/application/apps.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -195,14 +294,29 @@
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/application/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/application/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="29" lean-forward="true" selection-start-line="24" selection-start-column="29" selection-end-line="24" selection-end-column="29" />
+=======
+    <entry file="file://$PROJECT_DIR$/JointProject/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="32" lean-forward="true" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+>>>>>>> 3c29f52acf94ff8d7840e9e7445bc6fa3385fbfb
         </state>
       </provider>
     </entry>
