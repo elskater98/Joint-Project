@@ -19,10 +19,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
-    #path('', include('application.urls'))
-=======
     path('application/', include('application.urls')),
     path('', include('accounts.urls')),
->>>>>>> login_dev
+
 ]
