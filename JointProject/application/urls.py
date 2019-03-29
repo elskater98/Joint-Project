@@ -2,11 +2,8 @@ from . import views
 from django.urls import path
 
 urlpatterns=[
-    path('', views.selectableRoles, name='selectableRoles'),
+    path('', views.start_page, name='start_page'),
     # view paths
-    """path('abstract/', name='abstract'),
-    path('nature/', name='nature'),
-    path('minimal/',views.minimal, name='minimal'),
-    """
+
 
 ]

@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from .models import *
 
-def selectableRole(request):
-    return render(request,'selectableRoles.html')
+
+def start_page(request):
+    return render(request, 'start_page.html')
 
 def availableAction(request):
     return render(request,'availableActions.html')

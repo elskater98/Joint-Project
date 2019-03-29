@@ -10,26 +10,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
-<body>
-    <div class="text-center" style="margin-top: 25px">
-        <div style="margin-bottom: 40px">
-            <h1>Inicio</h1>
-        </div>
-    </div>
 
-    <div class="container">
-        <div style="margin-top: 25px">
-            <div style="margin-bottom: 30px">
-                <h5>Seleccione su rol:</h5>
-            </div>
-        </div>
-        <div class = "row">
-                <a class="btn btn-primary btn-lg btn-block" href="#" role="button">Gestor de Sala</a>
-                <a class="btn btn-primary btn-lg btn-block" href="#" role="button">Operario</a>
-                <a class="btn btn-primary btn-lg btn-block" href="#" role="button">Mantenimiento</a>
-                <a class="btn btn-primary btn-lg btn-block" href="#" role="button">CEO</a>
-        </div>
+<body>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Login Form -->
+        <form>
+          <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+          <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+          <input type="submit" class="fadeIn fourth" value="Log In">
+        </form>
+      </div>
     </div>
 
 </body>
