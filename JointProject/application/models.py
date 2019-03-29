@@ -28,7 +28,7 @@ class Dimensio (models.Model):
     amplada_cm = models.IntegerField()
 
     def __str__(self):
-        return '%s ( %s )' % (self.al_cm,self.llargada_cm,self.amplada_cm)
+        return '%s ( %s - %s )' % (self.al_cm,self.llargada_cm,self.amplada_cm)
 
 
 class Level_Agreement (models.Model):
@@ -38,7 +38,7 @@ class Level_Agreement (models.Model):
     hum_min = models.IntegerField()
 
     def __str__(self):
-        return '%s ( %s )' % (self.temp_max,self.temp_min,self.hum_max,self.hum_min)
+        return '%s - %s ( %s - %s )' % (self.temp_max,self.temp_min,self.hum_max,self.hum_min)
 
 
 class Producte(models.Model):
@@ -48,7 +48,7 @@ class Producte(models.Model):
 
 
     def __str__(self):
-        return '%s ( %s )' % (self.name,self.delivery_date, self.level_agreement)
+        return '%s ( %s - %s )' % (self.name,self.delivery_date, self.level_agreement)
 
 
 class Container (models.Model):
