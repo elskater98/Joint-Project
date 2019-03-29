@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Initial Page</title>
+
+     <!-- BOOTSTRAP 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+     {% load static %}
+    <link rel="stylesheet" href="{% static '/accounts/start_page.css' %}">
+</head>
+
+<body>
+    <h1>STORAGE & GO</h1>
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Login Form -->
+        <form>
+          <input type="text" id="login" class="fadeIn second" name="login" placeholder="USUARIO">
+          <input type="password" id="password" class="fadeIn third" name="login" placeholder="CONTRASEÑA">
+          <input type="submit" class="fadeIn fourth" value="ENTRAR">
+        </form>
+      </div>
+    </div>
+
+</body>
+</html>
