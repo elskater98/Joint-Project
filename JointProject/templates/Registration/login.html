@@ -1,0 +1,17 @@
+{% extends 'generic.html' %}
+{% block title %}<title>Login</title>{% endblock %}
+
+{% block registration %}
+    <div class="wrapper fadeInDown">
+      <div id="formContent">
+        <!-- Login Form -->
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+          <input type="submit" class="fadeIn fourth" value="ENTRAR">
+        </form>
+      </div>
+    </div>
+    {% endblock %}
+
+<
