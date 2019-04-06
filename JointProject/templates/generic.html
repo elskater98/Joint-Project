@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {% block Title %} <title>Title</title> {% endblock %}
+    {% block Title %} <title>Inicio</title> {% endblock %}
 
      <!-- BOOTSTRAP 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -14,19 +14,72 @@
 
 </head>
 <body>
-<h1>Bienvenido a STORAGE AND GO</h1>
-    {% block content %}
 
-        {% block registration %}
-            {% if user.is_authenticated %}
-                <li>Hi {{ user.username }}<a></a></li>
-               <li><a class="site-name" href="{% url 'logout' %}"> LOGOUT</a></li>
-            {% else %}
-                <li><a href="{% url 'login' %}">LOGIN</a></li>
-            {% endif %}
+    <div>
+        <div style="margin-top: 20px">
+            {% block content %}
+                {% block registration %}
 
-        {% endblock %}
-    {% endblock %}
+                    {% if user.is_authenticated %}
+
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+
+                                <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Tareas
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                                </li>
+
+
+                                <li class="nav-item active">
+                                <a class="navbar-brand" href="#"><img src="{% static '/icon/world-wide-web.svg' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{ user.username }}</a>
+                                </li>
+
+                                <li class="nav-item active">
+                                <a class=" nav-link" href="{% url 'logout' %}"> Logout</a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </nav>
+
+
+
+
+
+
+
+
+
+                    {% else %}
+
+                        <div class="text-center" style="margin-top: 20px">
+                            {% block Welcome %}<h1>Bienvenido a STORAGE AND GO</h1>{% endblock %}
+                        </div>
+
+                        <div class="container">
+                        <div class="text-center" style="margin-top: 50px">
+                            <a class=" btn btn-primary btn-lg btn-block fadeIn" href="{% url 'login' %}" role="button">LOGIN</a>
+                        </div>
+                        </div>
+
+
+                    {% endif %}
+                {% endblock %}
+            {% endblock %}
+         </div>
+    </div>
 
 
 </body>
