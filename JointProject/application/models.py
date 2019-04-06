@@ -22,13 +22,13 @@ class Address(models.Model):
         return 'Postal Code: %s - Address: %s' % (self.postal_code, self.address)
 
 
-class Dimensio (models.Model):
-    al_cm = models.IntegerField()
-    llargada_cm = models.IntegerField()
-    amplada_cm = models.IntegerField()
+class Dimension (models.Model):
+    long_cm = models.IntegerField()
+    width_cm = models.IntegerField()
+    height_cm = models.IntegerField()
 
     def __str__(self):
-        return '%s x %s x %s' % (self.al_cm,self.llargada_cm,self.amplada_cm)
+        return '%s x %s x %s' % (self.long_cm, self.width_cm, self.height_cm)
 
 
 class Level_Agreement (models.Model):
@@ -50,7 +50,7 @@ class Client (models.Model):
         return ' %s %s ' % (self.name, self.surname)
 
 
-class Producte(models.Model):
+class Product (models.Model):
     name = models.CharField(max_length=64)
     delivery_date = models.DateField(null=True,blank=True,help_text="Seleccionar la fecha de salida")
     level_agreement = models.ForeignKey(Level_Agreement,related_name='te',on_delete=models.PROTECT,default='0')
@@ -60,7 +60,7 @@ class Producte(models.Model):
         return '%s ( %s - %s )' % (self.name,self.delivery_date, self.client)
 
 
-class Sala (models.Model):
+class Room (models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self):
@@ -68,21 +68,21 @@ class Sala (models.Model):
 
 
 class Container (models.Model):
-    producte = models.ForeignKey(Producte,related_name='conte', on_delete=models.PROTECT)
-    dimensio_c = models.ForeignKey(Dimensio,related_name='te',on_delete=models.PROTECT)
-    sala = models.ForeignKey(Sala, related_name='descarrega_a', on_delete=models.PROTECT)
+    product = models.ForeignKey(Product,related_name='conte', on_delete=models.PROTECT)
+    dimension_c = models.ForeignKey(Dimension,related_name='te',on_delete=models.PROTECT)
+    room = models.ForeignKey(Room, related_name='descarrega_a', on_delete=models.PROTECT)
     manifest = models.ForeignKey(Manifest, related_name='disposa_de', on_delete=models.PROTECT)
 
     def __str__(self):
-        return '%s ( %s )' % (self.producte,self.dimensio_c)
+        return '%s ( %s )' % (self.product,self.dimension_c)
 
 
-class Ubicacio (models.Model):
-    pasillo = models.IntegerField()
-    prestatge = models.IntegerField()
-    hueco = models.IntegerField()
-    sala = models.ForeignKey(Sala,related_name='esta',on_delete=models.PROTECT)
-    dimensio = models.ForeignKey(Dimensio, related_name='capacitat', on_delete=models.PROTECT)
+class Location (models.Model):
+    aisle = models.IntegerField()
+    shelf = models.IntegerField()
+    space = models.IntegerField()
+    room = models.ForeignKey(Room,related_name='esta',on_delete=models.PROTECT)
+    dimension = models.ForeignKey(Dimension, related_name='capacitat', on_delete=models.PROTECT)
 
     def __str__(self):
-        return 'Pas:%sPres:%sH:%s-%s ' % (self.pasillo,self.prestatge,self.hueco,self.sala)
+        return 'Pas:%sPres:%sH:%s-%s ' % (self.aisle,self.shelf,self.space,self.room)
