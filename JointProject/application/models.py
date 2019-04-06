@@ -71,6 +71,7 @@ class Container (models.Model):
     producte = models.ForeignKey(Producte,related_name='conte', on_delete=models.PROTECT)
     dimensio_c = models.ForeignKey(Dimensio,related_name='te',on_delete=models.PROTECT)
     sala = models.ForeignKey(Sala, related_name='descarrega_a', on_delete=models.PROTECT)
+    manifest = models.ForeignKey(Manifest, related_name='disposa_de', on_delete=models.PROTECT)
 
     def __str__(self):
         return '%s ( %s )' % (self.producte,self.dimensio_c)
