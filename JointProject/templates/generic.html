@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
      {% load static %}
-    <link rel="stylesheet" href="{% static '/accounts/start_page.css' %}">
+    <link rel="stylesheet" href="{% static '/css/start_page.css' %}">
 
 </head>
 <body>
@@ -41,11 +41,11 @@
                                 </li>
 
                                 <li class="nav-item">
-                                <a class=" nav-link" href="#"> Salas</a>
+                                <a class=" nav-link" href="{% url 'salas' %}"> Salas</a>
                                 </li>
 
                                 <li class="nav-item">
-                                <a class=" nav-link" href="#"> Tareas</a>
+                                <a class=" nav-link" href="{% url 'tareas' %}"> Tareas</a>
                                 </li>
                                 </ul>
 
@@ -69,6 +69,8 @@
                             <h1 align="center">Bienvenido {{ user.username }}</h1>
                             <h2 style="color: black" align="center">¿Que tareas quieres hacer hoy?</h2>
                         </div>
+
+
                     </div>
                     {% endblock %}
 
@@ -91,7 +93,6 @@
             {% endblock %}
          </div>
     </div>
-
 
 </body>
 </html>

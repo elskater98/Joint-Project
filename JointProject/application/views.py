@@ -12,3 +12,9 @@ def manifiesto_salida(request):
     manifest = Manifest.objects.filter(kind_manifest__contains='S')
     return render(request, 'GestorSala/manifiesto_salida.html', context={'manifest':manifest})
 
+
+def salas(request):
+    return render(request, 'GestorSala/salas.html',)
+
+def tareas(request):
+    return render(request, 'GestorSala/tareas.html',)
