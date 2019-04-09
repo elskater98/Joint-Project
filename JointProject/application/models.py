@@ -9,6 +9,9 @@ class Manifest(models.Model):
     from_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='From')
     to_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='To')
 
+    MANIFEST_STATUS =(('E','Entrada'),('S','Salida'))
+    kind_manifest = models.CharField(max_length=1,choices=MANIFEST_STATUS,blank=False,default='E')
+
     def __str__(self):
         return 'Ref: %s ( %s )' % (self.reference,self.date)
 
