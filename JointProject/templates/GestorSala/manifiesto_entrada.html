@@ -8,37 +8,38 @@
 {{ c_manifest }}
 
     {% for i in manifest %}
-        {{ i.reference }}
+        {{ i.kind_manifest }}
     {% endfor %}
+
 <div class="container text-center">
  <h2 align="center" style="color: #0d0d0d">Manifiestos de Entrada</h2>
 <table class="table table-bordered">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Reference</th>
+      <th scope="col">From</th>
+      <th scope="col">To</th>
+      <th scope="col">Date</th>
     </tr>
   </thead>
   <tbody>
+
+    {% for i in range%}
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+
+      <th scope="row">{{ i }}</th>
+
+    {% for x in manifest%}
+            <td>{{ x.reference }}</td>
+            <td>{{ x.from_d }}</td>
+            <td>{{ x.to_d }}</td>
+            <td>{{ x.date }}</td>
+    {% endfor %}
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+  {% endfor %}
+
+
   </tbody>
 </table>
 
