@@ -122,5 +122,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/application/tareas/'
 LOGOUT_REDIRECT_URL = '/'
