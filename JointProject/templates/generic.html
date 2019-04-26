@@ -22,59 +22,92 @@
             {% block content %}
                 {% block register %}
                      {% if user.is_authenticated %}
+                                {% block nav %}
+                                    {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+                                         <!-- Gestor de sala -->
+                                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                                <ul class="navbar-nav mr-auto">
 
-                         {% block nav %}
-                         <!-- Gestor de sala -->
-                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">
+                                                    <li class="nav-item">
+                                                    <a class=" nav-link" href="{% url 'homepage' %}"> Inicio</a>
+                                                    </li>
 
+                                                    <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Manifiestos
+                                                    </a>
+                                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                    <a class="dropdown-item" href="{% url 'manifiesto_entrada' %}">Entrada</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="{% url 'manifiesto_salida' %}">Salida</a>
+                                                    </div>
+                                                    </li>
 
-                                    <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Manifiestos
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{% url 'manifiesto_entrada' %}">Entrada</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{% url 'manifiesto_salida' %}">Salida</a>
-                                    </div>
-                                    </li>
+                                                    <li class="nav-item">
+                                                    <a class=" nav-link" href="{% url 'salas' %}"> Salas</a>
+                                                    </li>
 
-                                    <li class="nav-item">
-                                    <a class=" nav-link" href="{% url 'salas' %}"> Salas</a>
-                                    </li>
+                                                    <li class="nav-item">
+                                                    <a class=" nav-link" href="{% url 'tareas' %}"> Tareas</a>
+                                                    </li>
+                                                    </ul>
 
-                                    <li class="nav-item">
-                                    <a class=" nav-link" href="{% url 'tareas' %}"> Tareas</a>
-                                    </li>
-                                    </ul>
+                                                    <ul class="navbar-nav margin-right: auto">
+                                                       <li class="nav-item active" >
+                                                    <a class="navbar-brand" href="#"><img src="{% static '/icon/world-wide-web.svg' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{ user.username }}</a>
+                                                    </li>
 
-                                    <ul class="navbar-nav margin-right: auto">
-                                       <li class="nav-item active" >
-                                    <a class="navbar-brand" href="#"><img src="{% static '/icon/world-wide-web.svg' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{ user.username }}</a>
-                                    </li>
+                                                    <li class="nav-item">
+                                                    <a class=" nav-link" href="{% url 'logout' %}"> Logout</a>
+                                                    </li>
+                                                    </ul>
 
-                                    <li class="nav-item">
-                                    <a class=" nav-link" href="{% url 'logout' %}"> Logout</a>
-                                    </li>
-                                    </ul>
+                                            </div>
+                                        </nav>
 
-                            </div>
-                        </nav>
+                                    {% elif role_class.role == 'operario' or role_class.role == 'admin' %}
+                                         <!-- Operario -->
+                                        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                                <ul class="navbar-nav mr-auto">
 
-                        {% endblock %}
+                                                    <li class="nav-item">
+                                                    <a class=" nav-link" href="{% url 'homepage' %}"> Inicio</a>
+                                                    </li>
 
-                            {% block informacio %}
-                                {% if role.role == 'admin' %}
-                                <h1>{{ role.role }}</h1>
-                                {% endif %}
-                            {% endblock %}
-                             {% endif %}
+                                                    <li class="nav-item">
+                                                    <a class=" nav-link" href="{% url 'salas' %}"> Salas</a>
+                                                    </li>
 
+                                                    <li class="nav-item">
+                                                    <a class=" nav-link" href="{% url 'tareas' %}"> Tareas</a>
+                                                    </li>
+                                                    </ul>
+
+                                                    <ul class="navbar-nav margin-right: auto">
+                                                       <li class="nav-item active" >
+                                                    <a class="navbar-brand" href="#"><img src="{% static '/icon/world-wide-web.svg' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{ user.username }}</a>
+                                                    </li>
+
+                                                    <li class="nav-item">
+                                                    <a class=" nav-link" href="{% url 'logout' %}"> Logout</a>
+                                                    </li>
+                                                    </ul>
+
+                                            </div>
+                                        </nav>
+                                    {% endif %}
+
+                                {% endblock %}
+
+                                {% block informacio %}
+                                    <h1> Bienvenido {{ role_class.user }} </h1>
+                                {% endblock %}
+
+                         {% endif %}
                 {% endblock %}
             {% endblock %}
-
          </div>
     </div>
 
