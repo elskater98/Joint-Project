@@ -22,6 +22,7 @@
             {% block content %}
                 {% block register %}
                      {% if user.is_authenticated %}
+
                          {% block nav %}
                          <!-- Gestor de sala -->
                         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -49,7 +50,7 @@
                                     </li>
                                     </ul>
 
-                                    <ul ul class="navbar-nav margin-right: auto">
+                                    <ul class="navbar-nav margin-right: auto">
                                        <li class="nav-item active" >
                                     <a class="navbar-brand" href="#"><img src="{% static '/icon/world-wide-web.svg' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{ user.username }}</a>
                                     </li>
@@ -61,10 +62,16 @@
 
                             </div>
                         </nav>
+
                         {% endblock %}
+
                             {% block informacio %}
+                                {% if role.role == 'admin' %}
+                                <h1>{{ role.role }}</h1>
+                                {% endif %}
                             {% endblock %}
-                     {% endif %}
+                             {% endif %}
+
                 {% endblock %}
             {% endblock %}
 

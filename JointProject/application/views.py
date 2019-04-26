@@ -2,7 +2,9 @@ from django.shortcuts import render
 from .models import *
 
 def homepage(request):
-    return render(request,'generic.html',)
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user = logged_user)
+    return render(request,'generic.html',context={'role':role_class.get()})
 
 def manifiesto_entrada(request):
     manifest = Manifest.objects.filter(kind_manifest__contains='E')

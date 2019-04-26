@@ -12,6 +12,7 @@ admin.site.register(Container)
 admin.site.register(Client)
 admin.site.register(Room)
 admin.site.register(Location)
+admin.site.register(UserProfile)
 
 
 

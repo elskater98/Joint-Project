@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -89,3 +90,12 @@ class Location (models.Model):
 
     def __str__(self):
         return 'Pas:%sPres:%sH:%s-%s ' % (self.aisle,self.shelf,self.space,self.room)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name="profile",on_delete=models.SET_DEFAULT,default=0)
+    ROLE_STATUS =(('admin','admin'),('gestorsala','gestor de sala'),('operario','operario'),('mantenimiento','operario de mantenimiento'),('CEO','CEO'))
+    role = models.CharField(max_length=32, choices=ROLE_STATUS, blank=False, default='operario')
+
+    def __str__(self):
+        return 'User: %s Role: %s' % (self.user,self.role)
+
