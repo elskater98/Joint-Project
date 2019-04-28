@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, UpdateView
 
 from application.forms import TaskForm
 from .models import *
@@ -71,5 +71,18 @@ class CreateTask(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(CreateTask, self).form_valid(form)
+
+class UpdateTaskAll(UpdateView):
+    template_name = 'update/update_task_all.html'
+    model = Task
+    fields = '__all__'
+
+class UpdateTaskStatus(UpdateView):
+    template_name = 'update/update_task_status.html'
+    model = Task
+    fields = ['status']
+
+
+
 
 

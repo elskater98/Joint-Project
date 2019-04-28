@@ -9,10 +9,15 @@
           {% for tarea_r in tareas_r %}
         <div class="alert alert-success alert-dismissible fade show">
         <strong>{{ tarea_r.title}}:</strong> {{ tarea_r.description }}.
-
+        <a href="{% url 'task_detail' tarea_r.pk %}">Mostrar Tarea</a>
+            {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+                <a href="{% url 'task_update_all' tarea_r.pk %}">Actualizar Tarea</a>
+                <a href="{% url 'task_update_status' tarea_r.pk %}">Cambiar Estado</a>
+            {% else %}
+             <a href="{% url 'task_update_status' tarea_r.pk %}">Cambiar Estado</a>
+            {% endif %}
         </div>
           {% endfor %}
-        <a href="{% url 'task_create' %}">Crear Tarea</a>
       </div>
 
         <!-- Mover contenedores -->
