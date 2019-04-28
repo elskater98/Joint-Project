@@ -5,32 +5,37 @@
     <div class="row">
         <!-- Retirar productos del muelle carga-->
       <div class="col">
-        <h4 align="center">Retirar</h4>
+        <h4 align="center">Realizar</h4>
+          {% for tarea_r in tareas_r %}
         <div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Tarea 1</strong> Comer sano es importante.
+        <strong>{{ tarea_r.title}}:</strong> {{ tarea_r.description }}.
         </div>
-        <div class="alert alert-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Tarea 2</strong> Retirar contenedor con REF: 25854854.
-        </div>
+        {% endfor %}
+
       </div>
+
         <!-- Mover contenedores -->
       <div class="col">
-         <h4 align="center">Mover</h4>
+       <h4 align="center">Pendientes</h4>
+           {% for tarea_p in tareas_p %}
+
             <div class="alert alert-primary alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Tarea 1</strong> Mover contenedores.
+            <strong>{{ tarea_p.title}}:</strong> {{ tarea_p.description }}.
             </div>
+          {% endfor %}
       </div>
         <!-- Transportar contenedores al muelle de carga -->
       <div class="col">
-         <h4 align="center">Transportar</h4>
+      <h4 align="center">Finalizadas</h4>
+           {% for tarea_f in tareas_f %}
             <div class="alert alert-light alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Tarea 1</strong> Transportar contenedores.
+            <strong>{{ tarea_f.title}}:</strong> {{ tarea_f.description }}.
             </div>
       </div>
+    {% endfor %}
     </div>
 
     </div>
