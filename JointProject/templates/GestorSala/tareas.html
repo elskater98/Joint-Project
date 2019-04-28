@@ -11,6 +11,7 @@
             <strong>{{ tarea_p.assigned }}:</strong>
             <a href="{% url 'task_detail' tarea_p.pk %}">Mostrar Tarea</a>
         {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+
             <a href="{% url 'task_update_all' tarea_p.pk %}">Actualizar Tarea</a>
             <a href="{% url 'task_update_status' tarea_p.pk %}">Cambiar Estado</a>
         {% else %}
@@ -18,7 +19,11 @@
         {% endif %}
             </div>
           {% endfor %}
-    <a href="{% url 'task_create'%}">Crear Tarea</a>
+        {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+
+            <a href="{% url 'task_create'%}">Crear Tarea</a>
+        {% endif %}
+
       </div>
 
         <!-- Retirar productos del muelle carga-->
