@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.views.generic import DetailView, CreateView, UpdateView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from application.forms import TaskForm
 from .models import *
@@ -83,6 +83,12 @@ class UpdateTaskStatus(UpdateView):
     model = Task
     fields = ['status']
     success_url = '/application/tareas'
+
+class DeleteTask(DeleteView):
+    template_name = 'delete/delete_task.html'
+    model = Task
+    success_url = '/application/tareas'
+
 
 
 
