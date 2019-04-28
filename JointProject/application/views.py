@@ -76,11 +76,13 @@ class UpdateTaskAll(UpdateView):
     template_name = 'update/update_task_all.html'
     model = Task
     fields = '__all__'
+    success_url = '/application/tareas'
 
 class UpdateTaskStatus(UpdateView):
     template_name = 'update/update_task_status.html'
     model = Task
     fields = ['status']
+    success_url = '/application/tareas'
 
 
 
