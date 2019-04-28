@@ -103,12 +103,13 @@ class UserProfile(models.Model):
 class Task(models.Model):
     TASK_STATUS = (('P', 'Pendiente'), ('R', 'Realizando'), ('F', 'Finalizada'))
     status = models.CharField(max_length=1, choices=TASK_STATUS, blank=False, default='P')
+    #tipus =
     #assigned = models.ForeignKey(User, related_name='assignado', on_delete=models.PROTECT)
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=256)
 
     def __str__(self):
-        return 'Title: %s ~ %s'%(self.title,self.status)
+        return '%s ~ %s'%(self.title,self.status)
 
     def get_absolute_url(self):
         return reverse('task_detail', args=[str(self.id)])
