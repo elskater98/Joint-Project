@@ -75,7 +75,7 @@ class CreateTask(CreateView):
 class UpdateTaskAll(UpdateView):
     template_name = 'update/update_task_all.html'
     model = Task
-    fields = '__all__'
+    fields = '__all__' #No pugui cnviar el usuari assignat ?¿
     success_url = '/application/tareas'
 
 class UpdateTaskStatus(UpdateView):

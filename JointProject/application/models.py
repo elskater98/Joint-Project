@@ -103,8 +103,9 @@ class UserProfile(models.Model):
 class Task(models.Model):
     TASK_STATUS = (('P', 'Pendiente'), ('R', 'Realizando'), ('F', 'Finalizada'))
     status = models.CharField(max_length=1, choices=TASK_STATUS, blank=False, default='P')
-    #tipus =
-    #assigned = models.ForeignKey(User, related_name='assignado', on_delete=models.PROTECT)
+    TYPE_STATUS = (('B', 'Blanco'), ('V', 'Verde'), ('A', 'Azul'))
+    tipus = models.CharField(max_length=1, choices=TYPE_STATUS, blank=False, default='V')
+    assigned = models.ForeignKey(User, related_name='assignado', on_delete=models.CASCADE)
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=256)
 

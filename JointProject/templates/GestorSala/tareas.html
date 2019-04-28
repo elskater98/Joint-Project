@@ -6,9 +6,9 @@
     <div class="col">
        <h4 align="center">Pendiente</h4>
            {% for tarea_p in tareas_p %}
-
             <div class="alert alert-primary alert-dismissible fade show">
             <strong>{{ tarea_p.title}}:</strong> {{ tarea_p.description }}.
+            <strong>{{ tarea_p.assigned }}:</strong>
             <a href="{% url 'task_detail' tarea_p.pk %}">Mostrar Tarea</a>
         {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
             <a href="{% url 'task_update_all' tarea_p.pk %}">Actualizar Tarea</a>
@@ -27,6 +27,7 @@
           {% for tarea_r in tareas_r %}
         <div class="alert alert-success alert-dismissible fade show">
         <strong>{{ tarea_r.title}}:</strong> {{ tarea_r.description }}.
+        <strong>{{ tarea_p.assigned }}:</strong>
         <a href="{% url 'task_detail' tarea_r.pk %}">Mostrar Tarea</a>
         {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
             <a href="{% url 'task_update_all' tarea_r.pk %}">Actualizar Tarea</a>
@@ -48,6 +49,7 @@
             <div class="alert alert-light alert-dismissible fade show">
 
             <strong>{{ tarea_f.title}}:</strong> {{ tarea_f.description }}.
+            <strong>{{ tarea_p.assigned }}:</strong>
             <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
         {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
             <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
