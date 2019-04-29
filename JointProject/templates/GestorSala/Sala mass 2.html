@@ -1,0 +1,51 @@
+{% extends 'generic.html' %}
+{% block title %}<title>SALA MASS 2</title>{% endblock %}
+
+{% block informacio %}
+    <div class="container">
+
+    </div>
+
+
+<div class="container text-center">
+    <div style="margin-bottom: 20px ">
+        <h2 align="center" style="color: #0d0d0d ">Información de Sala Mass 2</h2>
+    </div>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Temperatura actual</th>
+        <tr>
+        <tr>
+      <th scope="col">Ancho de la sala</th>
+    <tr>
+    <tr>
+      <th scope="col">Largo de la sala</th>
+        <tr>
+        <tr>
+      <th scope="col">Espacio total</th>
+        <tr>
+        <tr>
+      <th scope="col">Espacio ocupado</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for x in Room %}
+    <tr>
+            <td>{{ x.temperatura }}</td>
+            <td>{{ x.ancho }}</td>
+            <td>{{ x.largo }}</td>
+            <td>{{ x.espacio_Total }}</td>
+            <td>{{ x.espacio_Ocupado }}</td>
+    {% endfor %}
+    </tr>
+
+  </tbody>
+</table>
+
+
+</div>
+
+{% endblock %}

@@ -64,10 +64,15 @@ class Product (models.Model):
 
 
 class Room (models.Model):
-    name = models.CharField(max_length=64)
+    nombre = models.CharField(max_length=64)
+    temperatura = models.IntegerField()
+    ancho = models.IntegerField()
+    largo = models.IntegerField()
+    espacio_Total = models.IntegerField()
+    espacio_Ocupado = models.IntegerField()
 
     def __str__(self):
-        return '%s ' % (self.name)
+        return '%s %iCº %ix%i %i/%i ' % (self.name,self.temp,self.ancho,self.largo,self.espacio_disp,self.espacio_tot)
 
 
 class Container (models.Model):
