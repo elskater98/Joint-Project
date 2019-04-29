@@ -18,3 +18,10 @@ def salas(request):
 
 def tareas(request):
     return render(request, 'GestorSala/tareas.html',)
+
+def detalls_product (request, pk):
+    manifest = Manifest.objects.get(pk=pk)
+    products = Product.objects.filter(manifest=manifest.reference)
+    dictio = {'products': products,
+              'manifest': manifest}
+    return render(request=request, template_name="GestorSala/detalls_product.html", context=dictio)
