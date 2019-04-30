@@ -2,38 +2,37 @@
 {% block title %}<title>Manifiesto Entrada</title>{% endblock %}
 
 {% block informacio %}
-    <div class="container">
+    {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+        <div class="container text-center">
+            <div style="margin-bottom: 20px ">
+                <h2 align="center" style="color: #0d0d0d ">Manifiestos de Entrada</h2>
+            </div>
 
-    </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th scope="col">Reference</th>
+                    <th scope="col">From</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Date</th>
+                </tr>
+                </thead>
 
-
-    <div class="container text-center">
-        <div style="margin-bottom: 20px ">
-            <h2 align="center" style="color: #0d0d0d">Manifiestos de Entrada</h2>
+                <tbody>
+                    {% for x in manifest%}
+                    <tr>
+                        <td>{{ x.reference }}</td>
+                        <td>{{ x.from_d }}</td>
+                        <td>{{ x.to_d }}</td>
+                        <td>{{ x.date }}</td>
+                    {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Reference</th>
-          <th scope="col">From</th>
-          <th scope="col">To</th>
-          <th scope="col">Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for x in manifest%}
-        <tr>
-                <td>{{ x.reference }}</td>
-                <td>{{ x.from_d }}</td>
-                <td>{{ x.to_d }}</td>
-                <td>{{ x.date }}</td>
-        {% endfor %}
-        </tr>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif %}
 
-
-      </tbody>
-    </table>
-
-
-    </div>
 {% endblock %}
+

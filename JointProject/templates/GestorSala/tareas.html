@@ -1,77 +1,68 @@
 {% extends 'generic.html' %}
 
 {% block informacio %}
-    <div style="margin-top:20px" class="container">
-    <div class="row">
-    <div class="col">
-       <h4 align="center">Pendiente</h4>
-           {% for tarea_p in tareas_p %}
-            <div class="alert alert-primary alert-dismissible fade show">
-            <strong>{{ tarea_p.title}}:</strong> {{ tarea_p.description }}.
-            <strong>{{ tarea_p.assigned }}:</strong>
-            <a href="{% url 'task_detail' tarea_p.pk %}">Mostrar Tarea</a>
-        {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+    {% if role_class.role == 'gestorsala' or role_class.role == 'admin' or role_class.role == 'operario'%}
+        <div style="margin-top:20px" class="container">
+            <div class="row">
+                <div class="col">
+                    <h4 align="center">Pendiente</h4>
+                    {% for tarea_p in tareas_p %}
+                        <div class="alert alert-primary alert-dismissible fade show">
+                            <strong>{{ tarea_p.title}}:</strong> {{ tarea_p.description }}.
+                            <strong>{{ tarea_p.assigned }}:</strong>
+                            <a href="{% url 'task_detail' tarea_p.pk %}">Mostrar Tarea</a>
+                            {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+                                <a href="{% url 'task_update_all' tarea_p.pk %}">Actualizar Tarea</a>
+                                <a href="{% url 'task_update_status' tarea_p.pk %}">Cambiar Estado</a>
+                            {% else %}
+                                <a href="{% url 'task_update_status' tarea_p.pk %}">Cambiar Estado</a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
 
-            <a href="{% url 'task_update_all' tarea_p.pk %}">Actualizar Tarea</a>
-            <a href="{% url 'task_update_status' tarea_p.pk %}">Cambiar Estado</a>
-        {% else %}
-         <a href="{% url 'task_update_status' tarea_p.pk %}">Cambiar Estado</a>
-        {% endif %}
+                <!-- Retirar productos del muelle carga-->
+                <div class="col">
+                    <h4 align="center">Realizando</h4>
+                    {% for tarea_r in tareas_r %}
+                        <div class="alert alert-success alert-dismissible fade show">
+                            <strong>{{ tarea_r.title}}:</strong> {{ tarea_r.description }}.
+                            <strong>{{ tarea_p.assigned }}:</strong>
+                            <a href="{% url 'task_detail' tarea_r.pk %}">Mostrar Tarea</a>
+                            {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+                                <a href="{% url 'task_update_all' tarea_r.pk %}">Actualizar Tarea</a>
+                                <a href="{% url 'task_update_status' tarea_r.pk %}">Cambiar Estado</a>
+                            {% else %}
+                                <a href="{% url 'task_update_status' tarea_r.pk %}">Cambiar Estado</a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Mover contenedores -->
+
+                <!-- Transportar contenedores al muelle de carga -->
+                <div class="col">
+                    <h4 align="center">Finalizado</h4>
+                    {% for tarea_f in tareas_f %}
+                        <div class="alert alert-light alert-dismissible fade show">
+                            <strong>{{ tarea_f.title}}:</strong> {{ tarea_f.description }}.
+                            <strong>{{ tarea_p.assigned }}:</strong>
+                            <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
+                            {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
+                                <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
+                                <a href="{% url 'task_update_status' tarea_f.pk %}">Cambiar Estado</a>
+                                <a href="{% url 'task_delete' tarea_f.pk %}">Eliminar</a>
+                            {% else %}
+                                <a href="{% url 'task_update_status' tarea_f.pk %}">Cambiar Estado</a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
             </div>
-          {% endfor %}
-        {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
-
-            <a href="{% url 'task_create'%}">Crear Tarea</a>
-        {% endif %}
-
-      </div>
-
-        <!-- Retirar productos del muelle carga-->
-      <div class="col">
-        <h4 align="center">Realizando</h4>
-          {% for tarea_r in tareas_r %}
-        <div class="alert alert-success alert-dismissible fade show">
-        <strong>{{ tarea_r.title}}:</strong> {{ tarea_r.description }}.
-        <strong>{{ tarea_p.assigned }}:</strong>
-        <a href="{% url 'task_detail' tarea_r.pk %}">Mostrar Tarea</a>
-        {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
-            <a href="{% url 'task_update_all' tarea_r.pk %}">Actualizar Tarea</a>
-            <a href="{% url 'task_update_status' tarea_r.pk %}">Cambiar Estado</a>
-        {% else %}
-         <a href="{% url 'task_update_status' tarea_r.pk %}">Cambiar Estado</a>
-        {% endif %}
         </div>
-          {% endfor %}
-
-      </div>
-
-        <!-- Mover contenedores -->
-
-        <!-- Transportar contenedores al muelle de carga -->
-      <div class="col">
-      <h4 align="center">Finalizado</h4>
-           {% for tarea_f in tareas_f %}
-            <div class="alert alert-light alert-dismissible fade show">
-
-            <strong>{{ tarea_f.title}}:</strong> {{ tarea_f.description }}.
-            <strong>{{ tarea_p.assigned }}:</strong>
-            <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
-        {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
-            <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
-            <a href="{% url 'task_update_status' tarea_f.pk %}">Cambiar Estado</a>
-            <a href="{% url 'task_delete' tarea_f.pk %}">Eliminar</a>
-        {% else %}
-         <a href="{% url 'task_update_status' tarea_f.pk %}">Cambiar Estado</a>
-        {% endif %}
-            </div>
-          {% endfor %}
-      </div>
-
-    </div>
-
-
-
-
-
-    </div>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif %}
 {% endblock %}

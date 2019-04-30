@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
@@ -5,6 +7,15 @@ from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from application.forms import TaskForm
 from .models import *
 
+#Security Mixin
+
+class CheckIsRoleMixin(object):
+    def get_object(self, *args, **kwargs):
+        obj = super(CheckIsRoleMixin, self).get_object(*args, **kwargs)
+
+        if not obj.user == self.request.user:
+            raise PermissionDenied
+        return obj
 
 def homepage(request):
     #Obtencion rol del usuario
@@ -46,15 +57,27 @@ def salas(request):
     else:
         return redirect('/')
 
-def tareas(request):
+def tareas_mantenimiento(request):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
 
     if role_class.get().role == 'gestorsala' or role_class.get().role == 'operario' or role_class.get().role == 'admin':
-        tasks_p = Task.objects.filter(status__contains='P')
-        tasks_r = Task.objects.filter(status__contains='R')
-        tasks_f = Task.objects.filter(status__contains='F')
-        return render(request, 'GestorSala/tareas.html',context={'role_class':role_class.get(),'tareas_p':tasks_p,'tareas_r':tasks_r,'tareas_f':tasks_f})
+        tasks_p = Task.objects.filter(status__contains='P').filter(t_status__contains='M')
+        tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='M')
+        tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='M')
+        return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
+    else:
+        return redirect('/')
+
+def tareas_operarios(request):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'operario' or role_class.get().role == 'admin':
+        tasks_p = Task.objects.filter(status__contains='P').filter(t_status__contains='O')
+        tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='O')
+        tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='O')
+        return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
     else:
         return redirect('/')
 
@@ -62,32 +85,37 @@ class TaskDetailView(DetailView):
     template_name = 'details/task_detail.html'
     model = Task
 
-class CreateTask(CreateView):
+#LoginMixRequiered seguridad que solo pueda acceder el gestor de sala
+class CreateTask(LoginRequiredMixin,CreateView):
+
     form_class = TaskForm
     model = Task
-    success_url = '/application/tareas'
+    success_url = '/application/'
     template_name = 'create/create_task.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(CreateTask, self).form_valid(form)
 
-class UpdateTaskAll(UpdateView):
+
+
+class UpdateTaskAll(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task_all.html'
     model = Task
     fields = '__all__' #No pugui cnviar el usuari assignat ?¿
-    success_url = '/application/tareas'
+    success_url = '/application/'
 
-class UpdateTaskStatus(UpdateView):
+class UpdateTaskStatus(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task_status.html'
     model = Task
-    fields = ['status']
-    success_url = '/application/tareas'
+    success_url = '/application/' #segons el tipus de taska Operario o manteniment redireccionar al seu propi
 
-class DeleteTask(DeleteView):
+    fields = ['status'] #segons el tipus de taska Operario o manteniment redireccionar al seu propi is status ==
+
+class DeleteTask(LoginRequiredMixin,DeleteView):
     template_name = 'delete/delete_task.html'
     model = Task
-    success_url = '/application/tareas'
+    success_url = '/application/'
 
 
 
