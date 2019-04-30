@@ -7,16 +7,6 @@ from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from application.forms import TaskForm
 from .models import *
 
-#Security Mixin
-
-class CheckIsRoleMixin(object):
-    def get_object(self, *args, **kwargs):
-        obj = super(CheckIsRoleMixin, self).get_object(*args, **kwargs)
-
-        if not obj.user == self.request.user:
-            raise PermissionDenied
-        return obj
-
 def homepage(request):
     #Obtencion rol del usuario
     logged_user = request.user
@@ -85,9 +75,8 @@ class TaskDetailView(DetailView):
     template_name = 'details/task_detail.html'
     model = Task
 
-#LoginMixRequiered seguridad que solo pueda acceder el gestor de sala
-class CreateTask(LoginRequiredMixin,CreateView):
 
+class CreateTask(LoginRequiredMixin,CreateView):
     form_class = TaskForm
     model = Task
     success_url = '/application/'
@@ -97,13 +86,27 @@ class CreateTask(LoginRequiredMixin,CreateView):
         form.instance.user = self.request.user
         return super(CreateTask, self).form_valid(form)
 
-
+    #Evita accesos indeseados de otros roles
+    def dispatch(self, request, *args, **kwargs):
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala':
+            return super(CreateTask, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
 
 class UpdateTaskAll(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task_all.html'
     model = Task
     fields = '__all__' #No pugui cnviar el usuari assignat ?¿
     success_url = '/application/'
+
+    def dispatch(self, request, *args, **kwargs):
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala':
+            return super(UpdateTaskAll, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
 
 class UpdateTaskStatus(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task_status.html'
@@ -112,13 +115,21 @@ class UpdateTaskStatus(LoginRequiredMixin,UpdateView):
 
     fields = ['status'] #segons el tipus de taska Operario o manteniment redireccionar al seu propi is status ==
 
+    def dispatch(self, request, *args, **kwargs):
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala' or role == 'operario' or role == 'mantenimiento':
+            return super(UpdateTaskStatus, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
 class DeleteTask(LoginRequiredMixin,DeleteView):
     template_name = 'delete/delete_task.html'
     model = Task
     success_url = '/application/'
 
-
-
-
-
-
+    def dispatch(self, request, *args, **kwargs):
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala':
+            return super(DeleteTask, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
