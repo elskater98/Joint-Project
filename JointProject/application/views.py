@@ -14,7 +14,6 @@ def homepage(request):
 
     return render(request,'generic.html',context={'role_class':role_class.get()})
 
-# GESTOR DE SALA
 def manifiesto_entrada(request):
 
     logged_user = request.user
@@ -139,9 +138,10 @@ class UpdateTaskStatus(LoginRequiredMixin,UpdateView):
     model = Task
     success_url = '/application/' #segons el tipus de taska Operario o manteniment redireccionar al seu propi
 
-    fields = ['status'] #segons el tipus de tasca Operario o manteniment redireccionar al seu propi is status
+    fields = ['status']
 
     def dispatch(self, request, *args, **kwargs):
+        """Solo puede hacer uso de la clase aquellos usuarios con un rol disponible"""
         role = self.request.user.profile.role
         if role == 'admin' or role == 'gestorsala' or role == 'operario' or role == 'mantenimiento':
             return super(UpdateTaskStatus, self).dispatch(request, *args, **kwargs)
