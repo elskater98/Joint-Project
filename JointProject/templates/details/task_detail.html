@@ -1,10 +1,14 @@
 {% extends 'generic.html' %}
-{% block title %}<title>Manifiesto Entrada</title>{% endblock %}
+{% block title %}<title>Task detail</title>{% endblock %}
 
 {% block informacio %}
-    <div class="container">
-        <h1>{{ task.title }}</h1>
-        <h5>{{ task.description }}</h5>
+    {% if user.profile.role == 'gestorsala' or user.profile.role == 'admin' %}
+        <div class="container">
+            <h1>{{ task.title }}</h1>
+            <h5>{{ task.description }}</h5>
 
-    </div>
+        </div>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif%}
 {% endblock %}

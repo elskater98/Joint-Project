@@ -86,8 +86,9 @@ class CreateTask(LoginRequiredMixin,CreateView):
         form.instance.user = self.request.user
         return super(CreateTask, self).form_valid(form)
 
-    #Evita accesos indeseados de otros roles
+
     def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
         role = self.request.user.profile.role
         if role == 'admin' or role == 'gestorsala':
             return super(CreateTask, self).dispatch(request, *args, **kwargs)
@@ -95,9 +96,9 @@ class CreateTask(LoginRequiredMixin,CreateView):
             raise PermissionDenied
 
 class UpdateTaskAll(LoginRequiredMixin,UpdateView):
-    template_name = 'update/update_task_all.html'
+    template_name = 'update/update_task.html'
     model = Task
-    fields = '__all__' #No pugui cnviar el usuari assignat ?¿
+    fields = '__all__'
     success_url = '/application/'
 
     def dispatch(self, request, *args, **kwargs):
@@ -107,13 +108,38 @@ class UpdateTaskAll(LoginRequiredMixin,UpdateView):
         else:
             raise PermissionDenied
 
+    def get_context_data(self, **kwargs):
+        """Solo se pueden selecionar usuarios con  el rol gestor de sala o operario"""
+        context = super(UpdateTaskAll,self).get_context_data(**kwargs)
+        context['form'].fields['assigned'].queryset = UserProfile.objects.filter(role='gestorsala')| UserProfile.objects.filter(role='admin') |UserProfile.objects.filter(role='operario')| UserProfile.objects.filter(role='mantenimiento')
+        return context
+
+
+class UpdateAssignedTask(LoginRequiredMixin,UpdateView):
+    template_name = 'update/update_task.html'
+    model = Task
+    fields = ['assigned']
+    success_url = '/application/'
+
+    def dispatch(self, request, *args, **kwargs):
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala':
+            return super(UpdateAssignedTask, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+    def get_context_data(self, **kwargs):
+        """Solo se pueden selecionar usuarios con  el rol asignado"""
+        context = super(UpdateAssignedTask,self).get_context_data(**kwargs)
+        context['form'].fields['assigned'].queryset = UserProfile.objects.filter(role='gestorsala')| UserProfile.objects.filter(role='admin')|UserProfile.objects.filter(role='operario')| UserProfile.objects.filter(role='mantenimiento')
+        return context
 
 class UpdateTaskStatus(LoginRequiredMixin,UpdateView):
-    template_name = 'update/update_task_status.html'
+    template_name = 'update/update_task.html'
     model = Task
     success_url = '/application/' #segons el tipus de taska Operario o manteniment redireccionar al seu propi
 
-    fields = ['status'] #segons el tipus de taska Operario o manteniment redireccionar al seu propi is status ==
+    fields = ['status'] #segons el tipus de tasca Operario o manteniment redireccionar al seu propi is status
 
     def dispatch(self, request, *args, **kwargs):
         role = self.request.user.profile.role
