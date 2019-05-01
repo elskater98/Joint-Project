@@ -14,38 +14,22 @@
 
 <table class="table table-bordered">
   <thead>
+    {% for x in sala %}
     <tr>
-      <th scope="col">Temperatura actual</th>
+      <th scope="col">Temperatura actual = {{ x.temperatura }} ºC</th>
         <tr>
         <tr>
-      <th scope="col">Ancho de la sala</th>
-    <tr>
-    <tr>
-      <th scope="col">Largo de la sala</th>
+            <th scope="col">Ancho x Largo de la sala = {{ x.ancho }} X {{ x.largo }}</th>
         <tr>
         <tr>
-      <th scope="col">Espacio total</th>
+      <th scope="col">Espacio ocupado / Espacio Total = {{ x.espacio_Ocupado }}/{{ x.espacio_Total }}</th>
         <tr>
         <tr>
-      <th scope="col">Espacio ocupado</th>
+      <th scope="col">Espacio Disponible = ({{ x.espacio_Total }}-{{ x.espacio_Ocupado }})</th>
     </tr>
+  {% endfor %}
   </thead>
-  <tbody>
-
-    {% for x in Room %}
-    <tr>
-            <td>{{ x.temperatura }}</td>
-            <td>{{ x.ancho }}</td>
-            <td>{{ x.largo }}</td>
-            <td>{{ x.espacio_Total }}</td>
-            <td>{{ x.espacio_Ocupado }}</td>
-    {% endfor %}
-    </tr>
-
-  </tbody>
 </table>
-
-
 </div>
 
 {% endblock %}
