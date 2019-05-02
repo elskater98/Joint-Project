@@ -7,12 +7,14 @@ from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from application.forms import TaskForm
 from .models import *
 
+
 def homepage(request):
-    #Obtencion rol del usuario
+    # Obtencion rol del usuario
     logged_user = request.user
     role_class = UserProfile.objects.filter(user = logged_user)
 
     return render(request,'generic.html',context={'role_class':role_class.get()})
+
 
 def manifiesto_entrada(request):
 
@@ -37,6 +39,7 @@ def manifiesto_salida(request):
     else:
         return redirect('/')
 
+
 def salas(request):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
@@ -45,6 +48,7 @@ def salas(request):
         return render(request, 'GestorSala/salas.html',context={'role_class':role_class.get()})
     else:
         return redirect('/')
+
 
 def tareas_mantenimiento(request):
     logged_user = request.user
@@ -58,6 +62,7 @@ def tareas_mantenimiento(request):
     else:
         return redirect('/')
 
+
 def tareas_operarios(request):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
@@ -69,6 +74,7 @@ def tareas_operarios(request):
         return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
     else:
         return redirect('/')
+
 
 class TaskDetailView(DetailView):
     template_name = 'details/task_detail.html'
@@ -85,7 +91,6 @@ class CreateTask(LoginRequiredMixin,CreateView):
         form.instance.user = self.request.user
         return super(CreateTask, self).form_valid(form)
 
-
     def dispatch(self, request, *args, **kwargs):
         """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
         role = self.request.user.profile.role
@@ -93,6 +98,7 @@ class CreateTask(LoginRequiredMixin,CreateView):
             return super(CreateTask, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+
 
 class UpdateTaskAll(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task.html'
@@ -133,10 +139,11 @@ class UpdateAssignedTask(LoginRequiredMixin,UpdateView):
         context['form'].fields['assigned'].queryset = UserProfile.objects.filter(role='gestorsala')| UserProfile.objects.filter(role='admin')|UserProfile.objects.filter(role='operario')| UserProfile.objects.filter(role='mantenimiento')
         return context
 
-class UpdateTaskStatus(LoginRequiredMixin,UpdateView):
+
+class UpdateTaskStatus(LoginRequiredMixin, UpdateView):
     template_name = 'update/update_task.html'
     model = Task
-    success_url = '/application/' #segons el tipus de taska Operario o manteniment redireccionar al seu propi
+    success_url = '/application/' # segons el tipus de taska Operario o manteniment redireccionar al seu propi
 
     fields = ['status']
 
@@ -147,6 +154,7 @@ class UpdateTaskStatus(LoginRequiredMixin,UpdateView):
             return super(UpdateTaskStatus, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+
 
 class DeleteTask(LoginRequiredMixin,DeleteView):
     template_name = 'delete/delete_task.html'
