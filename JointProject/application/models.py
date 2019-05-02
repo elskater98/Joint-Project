@@ -4,8 +4,8 @@ from django.db import models
 
 
 class Manifest(models.Model):
-    date = models.DateField(null=True,blank=True,help_text="Seleccione la fecha de entrada")
     reference = models.CharField(max_length = 11, primary_key=True)
+    date = models.DateField(null=True,blank=True,help_text="Seleccione la fecha de entrada")
     from_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='From')
     to_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='To')
 

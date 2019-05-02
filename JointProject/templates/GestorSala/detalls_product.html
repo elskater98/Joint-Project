@@ -1,0 +1,41 @@
+{% extends 'generic.html' %}
+{% block title %}<title>Manifiesto Entrada</title>{% endblock %}
+
+{% block informacio %}
+    <div class="container">
+
+    </div>
+
+
+    <div class="container text-center">
+        <div style="margin-bottom: 20px ">
+            <h2 align="center" style="color: #0d0d0d">Productes del Manifest: {{ manifest.reference }}</h2>
+        </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Delivery Date</th>
+          <th scope="col">Level Agreement</th>
+          <th scope="col">Client</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for Product in products %}
+        <tr>
+            <td>  {{ Product.name}}  </td>
+            <td>  {{ Product.delivery_date}}  </td>
+            <td>  {{ Product.level_agreement}}  </td>
+            <td>  {{ Product.client}}  </td>
+
+        </tr>
+
+
+      </tbody>
+        {% empty %} Sorry, this manifest doesn't have products!
+        {% endfor %}
+    </table>
+
+
+    </div>
+{% endblock %}

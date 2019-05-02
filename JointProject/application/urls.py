@@ -4,7 +4,11 @@ from django.views.generic import ListView
 from application.models import Room
 from application.views import detalls_sala
 from . import views
-from django.urls import path
+from django.urls import path, include
+from django.conf.urls import url
+from .views import *
+
+
 
 
 urlpatterns=[
@@ -24,5 +28,7 @@ urlpatterns=[
 
     path('tareas/', views.tareas, name='tareas'),
 
-
+    url(r'^manifiesto_entrada/(?P<pk>\d+)/$',
+        detalls_product,
+        name='detalls_product'),
 ]
