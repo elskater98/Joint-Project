@@ -1,0 +1,27 @@
+{% extends 'generic.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SALAS</title>
+</head>
+<body>
+<h1>
+    SALAS
+</h1>
+
+{% block informacio %}
+    <tr style="margin-top:20px" class="container">
+        <table align="center" style="margin-top: 20px" width="400">
+            {% for x in rooms %}
+            <tr>
+                <th><a style="width: 300px; height: 75px" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
+                                 title="hola" data-content="Temperatura: <br /> Espacio:" href="{% url 'detalls_sala' x.pk %}"> {{x.nombre}}</a></th>
+
+            </tr>
+            {% endfor %}
+        </table>
+    </tr>
+
+{% endblock %}
+</body>
+</html>

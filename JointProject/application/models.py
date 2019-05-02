@@ -5,7 +5,7 @@ from django.db import models
 
 class Manifest(models.Model):
     date = models.DateField(null=True,blank=True,help_text="Seleccione la fecha de entrada")
-    reference = models.CharField(max_length = 11)
+    reference = models.CharField(max_length = 11, primary_key=True)
     from_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='From')
     to_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='To')
 
@@ -58,6 +58,7 @@ class Product (models.Model):
     delivery_date = models.DateField(null=True,blank=True,help_text="Seleccionar la fecha de salida")
     level_agreement = models.ForeignKey(Level_Agreement,related_name='te',on_delete=models.PROTECT,default='0')
     client = models.ForeignKey(Client, related_name='es_de', on_delete=models.PROTECT, default='0')
+    manifest = models.ForeignKey(Manifest, related_name='es_troba', on_delete=models.PROTECT, default='0')
 
     def __str__(self):
         return '%s ( %s - %s )' % (self.name,self.delivery_date, self.client)
@@ -70,6 +71,7 @@ class Room (models.Model):
     largo = models.IntegerField()
     espacio_Total = models.IntegerField()
     espacio_Ocupado = models.IntegerField()
+
 
     def __str__(self):
         return '%s %iCº %ix%i %i/%i ' % (self.nombre,self.temperatura,self.ancho,self.largo,self.espacio_Ocupado,self.espacio_Total)
