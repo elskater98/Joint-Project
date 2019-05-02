@@ -21,7 +21,7 @@ def manifiesto_entrada(request):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
 
-    if role_class.get().role == 'gestorsala'or role_class.get().role == 'admin':
+    if role_class.get().role == 'gestorsala'or role_class.get().role == 'admin' or role_class.get().role == 'CEO':
         manifest = Manifest.objects.filter(kind_manifest__contains='E')
         return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest':manifest,'role_class':role_class.get()})
     else:
@@ -33,7 +33,7 @@ def manifiesto_salida(request):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
 
-    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin':
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'CEO':
         manifest = Manifest.objects.filter(kind_manifest__contains='S')
         return render(request, 'GestorSala/manifiesto_salida.html', context={'manifest':manifest,'role_class':role_class.get()})
     else:
@@ -54,7 +54,7 @@ def tareas_mantenimiento(request):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
 
-    if role_class.get().role == 'gestorsala' or role_class.get().role == 'operario' or role_class.get().role == 'admin':
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'mantenimiento' or role_class.get().role == 'admin':
         tasks_p = Task.objects.filter(status__contains='P').filter(t_status__contains='M')
         tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='M')
         tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='M')
@@ -76,9 +76,17 @@ def tareas_operarios(request):
         return redirect('/')
 
 
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin,DetailView):
     template_name = 'details/task_detail.html'
     model = Task
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala' or role== 'operario' or role == 'mantenimiento':
+            return super(TaskDetailView, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
 
 
 class CreateTask(LoginRequiredMixin,CreateView):
@@ -128,7 +136,7 @@ class UpdateAssignedTask(LoginRequiredMixin,UpdateView):
 
     def dispatch(self, request, *args, **kwargs):
         role = self.request.user.profile.role
-        if role == 'admin' or role == 'gestorsala':
+        if role == 'admin' or role == 'gestorsala' or role =='operario' or role == 'mantenimiento': ##Es necesario el rol de operario y mantenimiento
             return super(UpdateAssignedTask, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -136,7 +144,7 @@ class UpdateAssignedTask(LoginRequiredMixin,UpdateView):
     def get_context_data(self, **kwargs):
         """Solo se pueden selecionar usuarios con  el rol asignado"""
         context = super(UpdateAssignedTask,self).get_context_data(**kwargs)
-        context['form'].fields['assigned'].queryset = UserProfile.objects.filter(role='gestorsala')| UserProfile.objects.filter(role='admin')|UserProfile.objects.filter(role='operario')| UserProfile.objects.filter(role='mantenimiento')
+        context['form'].fields['assigned'].queryset = UserProfile.objects.filter(role='operario')| UserProfile.objects.filter(role='mantenimiento')
         return context
 
 

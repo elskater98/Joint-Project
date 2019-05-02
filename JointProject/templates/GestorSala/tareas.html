@@ -10,7 +10,7 @@
                         {% if tarea_p.tipus == 'B' %}
                         <div class="alert alert-light alert-dismissible fade show">
                             <strong>{{ tarea_p.title}}:</strong> {{ tarea_p.description }}.
-                            <strong>{{ tarea_p.assigned }}:</strong>
+                            <strong>{{ tarea_p.assigned.user }}:</strong>
                             <a href="{% url 'task_detail' tarea_p.pk %}">Mostrar Tarea</a>
                             {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                 <a href="{% url 'task_update_all' tarea_p.pk %}">Actualizar Tarea</a>
@@ -22,7 +22,7 @@
                         {% if tarea_p.tipus == 'V' %}
                             <div class="alert alert-success alert-dismissible fade show">
                                 <strong>{{ tarea_p.title}}:</strong> {{ tarea_p.description }}.
-                                <strong>{{ tarea_p.assigned }}:</strong>
+                                <strong>{{ tarea_p.assigned.user }}:</strong>
                                 <a href="{% url 'task_detail' tarea_p.pk %}">Mostrar Tarea</a>
                                 {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                     <a href="{% url 'task_update_all' tarea_p.pk %}">Actualizar Tarea</a>
@@ -34,7 +34,7 @@
                         {% if tarea_p.tipus == 'A' %}
                             <div class="alert alert-primary alert-dismissible fade show">
                                 <strong>{{ tarea_p.title}}:</strong> {{ tarea_p.description }}.
-                                <strong>{{ tarea_p.assigned }}:</strong>
+                                <strong>{{ tarea_p.assigned.user }}:</strong>
                                 <a href="{% url 'task_detail' tarea_p.pk %}">Mostrar Tarea</a>
                                 {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                     <a href="{% url 'task_update_all' tarea_p.pk %}">Actualizar Tarea</a>
@@ -52,7 +52,7 @@
                         {% if tarea_r.tipus == 'A' %}
                             <div class="alert alert-primary alert-dismissible fade show">
                                 <strong>{{ tarea_r.title}}:</strong> {{ tarea_r.description }}.
-                                <strong>{{ tarea_p.assigned }}:</strong>
+                                <strong>{{ tarea_r.assigned.user }}:</strong>
                                 <a href="{% url 'task_detail' tarea_r.pk %}">Mostrar Tarea</a>
                                 {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                     <a href="{% url 'task_update_all' tarea_r.pk %}">Actualizar Tarea</a>
@@ -64,7 +64,7 @@
                         {% if tarea_r.tipus == 'B' %}
                             <div class="alert alert-light alert-dismissible fade show">
                             <strong>{{ tarea_r.title}}:</strong> {{ tarea_r.description }}.
-                                <strong>{{ tarea_p.assigned }}:</strong>
+                                <strong>{{ tarea_r.assigned.user }}:</strong>
                                 <a href="{% url 'task_detail' tarea_r.pk %}">Mostrar Tarea</a>
                                 {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                     <a href="{% url 'task_update_all' tarea_r.pk %}">Actualizar Tarea</a>
@@ -76,7 +76,7 @@
                         {% if tarea_r.tipus == 'V' %}
                             <div class="alert alert-success alert-dismissible fade show">
                                 <strong>{{ tarea_r.title}}:</strong> {{ tarea_r.description }}.
-                                <strong>{{ tarea_p.assigned }}:</strong>
+                                <strong>{{ tarea_r.assigned.user }}:</strong>
                                 <a href="{% url 'task_detail' tarea_r.pk %}">Mostrar Tarea</a>
                                 {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                     <a href="{% url 'task_update_all' tarea_r.pk %}">Actualizar Tarea</a>
@@ -94,7 +94,7 @@
                         {% if tarea_f.tipus == 'A' %}
                             <div class="alert alert-primary alert-dismissible fade show">
                             <strong>{{ tarea_f.title}}:</strong> {{ tarea_f.description }}.
-                            <strong>{{ tarea_p.assigned }}:</strong>
+                            <strong>{{ tarea_f.assigned.user }}:</strong>
                             <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
                             {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                 <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
@@ -107,7 +107,7 @@
                         {% if tarea_f.tipus == 'B' %}
                             <div class="alert alert-light alert-dismissible fade show">
                              <strong>{{ tarea_f.title}}:</strong> {{ tarea_f.description }}.
-                            <strong>{{ tarea_p.assigned }}:</strong>
+                            <strong>{{ tarea_f.assigned.user }}:</strong>
                             <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
                             {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                 <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
@@ -120,7 +120,7 @@
                         {% if tarea_f.tipus == 'V' %}
                             <div class="alert alert-success alert-dismissible fade show">
                             <strong>{{ tarea_f.title}}:</strong> {{ tarea_f.description }}.
-                            <strong>{{ tarea_p.assigned }}:</strong>
+                            <strong>{{ tarea_f.assigned.user }}:</strong>
                             <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
                             {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                 <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
