@@ -1,15 +1,8 @@
-from django.conf.urls import url
 from django.views.generic import ListView
-
-from application.models import Room
-from application.views import detalls_sala
 from . import views
 from django.urls import path, include
 from django.conf.urls import url
 from .views import *
-
-
-
 
 urlpatterns=[
     path('',views.homepage,name='homepage'),
@@ -26,9 +19,25 @@ urlpatterns=[
         detalls_sala,
         name='detalls_sala'),
 
-    path('tareas/', views.tareas, name='tareas'),
-
     url(r'^manifiesto_entrada/(?P<pk>\d+)/$',
         detalls_product,
         name='detalls_product'),
+    path('salas/', views.salas, name='salas'),
+    #VISTA
+    path('tareas/mantenimiento', views.tareas_mantenimiento, name='tareas_mantenimiento'),
+    path('tareas/operarios', views.tareas_operarios, name='tareas_operarios'),
+
+    #VISTA ESPECIFICA
+    path('tarea/<int:pk>', views.TaskDetailView.as_view(), name='task_detail'),
+
+    #CREATE
+    path('tarea/create_task', views.CreateTask.as_view(), name='task_create'),
+
+    #UPDATE
+    path('tarea/update_all/int<int:pk>', views.UpdateTaskAll.as_view(), name='task_update_all'),
+    path('tarea/update_status/<int:pk>', views.UpdateTaskStatus.as_view(), name='task_update_status'),
+    path('tarea/update_assigned/<int:pk>', views.UpdateAssignedTask.as_view(), name='task_update_assigned'),
+
+    #DELETE
+    path('tarea/delete_task/<int:pk>', views.DeleteTask.as_view(), name='task_delete'),
 ]

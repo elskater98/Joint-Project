@@ -1,6 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.urls import reverse
 
 
 class Manifest(models.Model):
@@ -96,3 +100,41 @@ class Location (models.Model):
 
     def __str__(self):
         return 'Pas:%sPres:%sH:%s-%s ' % (self.aisle,self.shelf,self.space,self.room)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, related_name="profile",on_delete=models.SET_DEFAULT,default=0)
+    ROLE_STATUS =(('admin','admin'),('gestorsala','gestor de sala'),('operario','operario'),('mantenimiento','operario de mantenimiento'),('CEO','CEO'))
+    role = models.CharField(max_length=32, choices=ROLE_STATUS, blank=False, default='operario') #Null true and blank true ?¿
+
+
+    def __str__(self):
+        return 'User: %s Role: %s' % (self.user,self.role)
+ #Permet inclour els atributs a la clase User {{user.profile.role}}
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            UserProfile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
+class Task(models.Model):
+    T_STATUS = (('M', 'Manteniment'), ('O', 'Operarios'))
+    t_status = models.CharField(max_length=1, choices=T_STATUS, blank=False, default='O')
+
+    TASK_STATUS = (('P', 'Pendiente'), ('R', 'Realizando'), ('F', 'Finalizada'))
+    status = models.CharField(max_length=1, choices=TASK_STATUS, blank=False, default='P')
+
+    TYPE_STATUS = (('B', 'Blanco'), ('V', 'Verde'), ('A', 'Azul'))
+    tipus = models.CharField(max_length=1, choices=TYPE_STATUS, blank=False, default='V')
+
+    assigned = models.ForeignKey(UserProfile, related_name='assignado', on_delete=models.CASCADE,null=True,blank=True) #Atribut opcional lliure eleccio per cada participant
+    title = models.CharField(max_length=32)
+    description = models.TextField(max_length=256)
+
+    def __str__(self):
+        return '%s ~ %s'%(self.title,self.status)
+
+    def get_absolute_url(self):
+        return reverse('task_detail', args=[str(self.id)])
