@@ -1,0 +1,65 @@
+{% extends 'generic.html' %}
+{% block title %}<title>Manifiesto Entrada</title>{% endblock %}
+
+{% block informacio %}
+    <div class="container">
+
+    </div>
+
+
+    <div class="container text-center">
+        <div style="margin-bottom: 20px ">
+            <h2 align="center" style="color: #0d0d0d">Informació de {{ room.nombre }}</h2>
+        </div>
+         <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Temperature</th>
+          <th scope="col">Width</th>
+          <th scope="col">Length</th>
+          <th scope="col">Total Space</th>
+          <th scope="col">Occupied Space</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>  {{ room.temperatura}}  </td>
+            <td>  {{ room.ancho}}  </td>
+            <td>  {{ room.largo}}  </td>
+            <td>  {{ room.espacio_Total}}  </td>
+            <td>  {{ room.espacio_Ocupado}}  </td>
+
+        </tr>
+
+      </tbody>
+    </table>
+        <div style="margin-bottom: 20px ">
+            <h2 align="center" style="color: #0d0d0d">Containers de  {{ room.nombre }}</h2>
+        </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Dimension</th>
+          <th scope="col">Manifest</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in containers %}
+        <tr>
+            <td>  {{ x.product}}  </td>
+            <td>  {{ x.dimension_c}}  </td>
+            <td><a href="{%  url  'GestorSala:detalls_product' x.manifest.reference %}"> {{ x.manifest }} </a></td>
+
+        </tr>
+
+
+      </tbody>
+
+        {% empty %} This room doesn't have containers!
+        {% endfor %}
+    </table>
+
+
+    </div>
+{% endblock %}

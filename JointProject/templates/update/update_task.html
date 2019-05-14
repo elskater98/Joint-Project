@@ -1,0 +1,17 @@
+{% extends 'generic.html' %}
+{% block title %}<title>Crear Tarea</title>{% endblock %}
+
+{% block informacio %}
+      {% if user.profile.role != 'CEO' %}
+         <div class="container">
+            <div class="list-group">
+                <form method="post">{% csrf_token %}
+                {{ form.as_p }}
+                    <input type="submit" value="Update">
+                </form>
+            </div>
+        </div>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif%}
+{% endblock %}

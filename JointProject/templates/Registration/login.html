@@ -1,18 +1,20 @@
 {% extends 'generic.html' %}
 {% block title %}<title>Login</title>{% endblock %}
 
-{% block registration %}
-    <div style="margin-top: 20px" >
-        <div class="wrapper fadeInDown">
-      <div id="formContent">
-        <!-- Login Form -->
-        <form method="post">
-            {% csrf_token %}
-            {{ form }}
-          <input type="submit" class="fadeIn fourth" value="ENTRAR">
-        </form>
-      </div>
+{% block register %}
+<div style="margin-top: 20px" >
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Login Form -->
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" class="fadeIn fourth" value="ENTRAR">
+            </form>
+        </div>
     </div>
-    </div>
+</div>
+{% endblock %}
 
-    {% endblock %}
+
+
