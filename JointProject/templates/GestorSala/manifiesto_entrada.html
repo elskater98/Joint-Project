@@ -21,7 +21,7 @@
                 <tbody>
                     {% for x in manifest%}
                     <tr>
-                        <td><a href="{%  url  'GestorSala:detalls_product' x.reference %}"> {{ x.reference }} </a></td>
+                        <td><a href="{%  url  'product_detail' x.reference %}"> {{ x.reference }} </a></td>
                         <td>{{ x.from_d }}</td>
                         <td>{{ x.to_d }}</td>
                         <td>{{ x.date }}</td>

@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView,ListView
 
 from application.forms import TaskForm
 from .models import *
@@ -25,7 +25,7 @@ def manifiesto_entrada(request):
         manifest = Manifest.objects.filter(kind_manifest__contains='E')
         return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest':manifest,'role_class':role_class.get()})
     else:
-        return redirect('/')
+        raise PermissionDenied
 
 
 def manifiesto_salida(request):
@@ -37,30 +37,43 @@ def manifiesto_salida(request):
         manifest = Manifest.objects.filter(kind_manifest__contains='S')
         return render(request, 'GestorSala/manifiesto_salida.html', context={'manifest':manifest,'role_class':role_class.get()})
     else:
-        return redirect('/')
+        raise PermissionDenied
 
-def detalls_sala(request, pk):
-    room = Room.objects.get(pk=pk)
-    containers = Container.objects.filter(room=room)
-    dictio = {'containers': containers,
-              'room': room}
-    return render(request=request, template_name="GestorSala/detalls_sala.html", context=dictio)
-
-def detalls_product (request, pk):
-    manifest = Manifest.objects.get(pk=pk)
-    products = Product.objects.filter(manifest=manifest.reference)
-    dictio = {'products': products,
-              'manifest': manifest}
-    return render(request=request, template_name="GestorSala/detalls_product.html", context=dictio)
-
-def salas(request):
+def room_details(request, pk):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
 
-    if role_class.get().role == 'gestorsala' or role_class.get().role == 'operario' or role_class.get().role == 'admin':
-        return render(request, 'GestorSala/salas.html',context={'role_class':role_class.get()})
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'CEO' or role_class.get().role == 'mantenimiento' or role_class.get().role == 'operario':
+        room = Room.objects.get(pk=pk)
+        containers = Container.objects.filter(room=room)
+        return render(request=request, template_name="details/room_detail.html", context={'containers': containers,'room': room})
     else:
-        return redirect('/')
+        raise PermissionDenied
+
+
+def product_details (request, pk):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'operario':
+        manifest = Manifest.objects.get(pk=pk)
+        products = Product.objects.filter(manifest=manifest.reference)
+        return render(request=request, template_name="details/product_detail.html", context={'products': products,'manifest': manifest})
+    else:
+        raise PermissionDenied
+
+class ListRooms(ListView):
+    queryset = Room.objects.all()
+    context_object_name = 'rooms'
+    template_name = 'GestorSala/rooms.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala' or role == 'CEO' or role == 'operario' or role =='mantenimiento':
+            return super(ListRooms, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
 
 
 def tareas_mantenimiento(request):
@@ -73,7 +86,7 @@ def tareas_mantenimiento(request):
         tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='M')
         return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
     else:
-        return redirect('/')
+        raise PermissionDenied
 
 
 def tareas_operarios(request):
@@ -86,7 +99,7 @@ def tareas_operarios(request):
         tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='O')
         return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
     else:
-        return redirect('/')
+        raise PermissionDenied
 
 
 class TaskDetailView(LoginRequiredMixin,DetailView):
