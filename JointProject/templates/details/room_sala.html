@@ -1,0 +1,41 @@
+{% extends 'generic.html' %}
+{% block title %}<title>TASQUES DE LA SALA</title>{% endblock %}
+
+{% block informacio %}
+    <div class="container">
+
+    </div>
+
+
+    <div class="container text-center">
+        <div style="margin-bottom: 20px ">
+            <h2 align="center" style="color: #0d0d0d">TASQUES DE LA SALA {{ room.nombre }}</h2>
+        </div>
+
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Títol</th>
+          <th scope="col">Descripció</th>
+          <th scope="col">Treballador assignat</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for x in tareas %}
+        <tr>
+            <td><a href="{%  url  'task_detail' x.pk %}"> {{ x.title}} </a>  </td>
+            <td>  {{ x.description}}  </td>
+            <td> {{ x.assigned }}</td>
+
+        </tr>
+
+
+      </tbody>
+
+        {% empty %} This room doesn't have asigned tasks!
+        {% endfor %}
+    </table>
+
+
+    </div>
+{% endblock %}

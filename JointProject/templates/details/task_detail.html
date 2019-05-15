@@ -6,6 +6,7 @@
         <div class="container" align="center">
             <h1><strong>{{ task.title }}</strong></h1>
             <h5><strong> Tarea: </strong> {{ task.description }}</h5>
+            <h5><strong> Sala :</strong> {{ task.sala.nombre }}</h5>
             <h5><strong>Assignado a :</strong> {{ task.assigned.user }}</h5>
         </div>
     {% else %}

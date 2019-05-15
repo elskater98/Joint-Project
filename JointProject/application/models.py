@@ -130,6 +130,7 @@ class Task(models.Model):
     tipus = models.CharField(max_length=1, choices=TYPE_STATUS, blank=False, default='V')
 
     assigned = models.ForeignKey(UserProfile, related_name='assignado', on_delete=models.CASCADE,null=True,blank=True) #Atribut opcional lliure eleccio per cada participant
+    sala = models.ForeignKey(Room, related_name='relacionado_con', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=256)
 

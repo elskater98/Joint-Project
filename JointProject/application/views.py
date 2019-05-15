@@ -62,6 +62,18 @@ def room_details(request, pk):
     else:
         raise PermissionDenied
 
+def room_tareas(request, pk):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'CEO' or role_class.get().role == 'mantenimiento' or role_class.get().role == 'operario':
+        room = Room.objects.get(pk=pk)
+        tareas = Task.objects.filter(sala=room)
+        return render(request=request, template_name="details/room_sala.html", context={'tareas': tareas,'room': room})
+    else:
+        raise PermissionDenied
+
+
 
 def product_details (request, pk):
     logged_user = request.user

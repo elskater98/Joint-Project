@@ -1,9 +1,9 @@
 {% extends 'generic.html' %}
-{% block title %}<title>Manifiesto Entrada</title>{% endblock %}
+{% block title %}<title>SALA</title>{% endblock %}
 
 {% block informacio %}
     <div class="container">
-
+        <h5 align="left"><a href="{%  url  'room_tareas' room.pk %}"><strong> TASQUES ASSIGNADES </strong></a></h5>
     </div>
 
 
@@ -11,6 +11,8 @@
         <div style="margin-bottom: 20px ">
             <h2 align="center" style="color: #0d0d0d">Informació de {{ room.nombre }}</h2>
         </div>
+
+
          <table class="table table-bordered">
       <thead>
         <tr>
