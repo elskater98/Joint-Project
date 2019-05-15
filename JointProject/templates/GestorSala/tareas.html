@@ -98,7 +98,7 @@
                             <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
                             {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                 <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
-                                <a href="{% url 'task_delete' tarea_f.pk %}">Eliminar</a>
+                                <a href="{% url 'task_update_finish' tarea_f.pk %}">Eliminar</a>
                             {% endif %}
                              <a href="{% url 'task_update_status' tarea_f.pk %}">Cambiar Estado</a>
                             <a href="{% url 'task_update_assigned' tarea_f.pk %}">Asignar Tarea</a>
@@ -111,7 +111,7 @@
                             <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
                             {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                 <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
-                                <a href="{% url 'task_delete' tarea_f.pk %}">Eliminar</a>
+                                <a href="{% url 'task_update_finish' tarea_f.pk %}">Eliminar</a>
                             {% endif %}
                              <a href="{% url 'task_update_status' tarea_f.pk %}">Cambiar Estado</a>
                             <a href="{% url 'task_update_assigned' tarea_f.pk %}">Asignar Tarea</a>
@@ -124,7 +124,7 @@
                             <a href="{% url 'task_detail' tarea_f.pk %}">Mostrar Tarea</a>
                             {% if role_class.role == 'gestorsala' or role_class.role == 'admin' %}
                                 <a href="{% url 'task_update_all' tarea_f.pk %}">Actualizar Tarea</a>
-                                <a href="{% url 'task_delete' tarea_f.pk %}">Eliminar</a>
+                                <a href="{% url 'task_update_finish' tarea_f.pk %}">Eliminar</a>
                             {% endif %}
                              <a href="{% url 'task_update_status' tarea_f.pk %}">Cambiar Estado</a>
                             <a href="{% url 'task_update_assigned' tarea_f.pk %}">Asignar Tarea</a>

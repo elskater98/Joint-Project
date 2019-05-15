@@ -93,9 +93,9 @@ def tareas_mantenimiento(request):
     role_class = UserProfile.objects.filter(user=logged_user)
 
     if role_class.get().role == 'gestorsala' or role_class.get().role == 'mantenimiento' or role_class.get().role == 'admin':
-        tasks_p = Task.objects.filter(status__contains='P').filter(t_status__contains='M')
-        tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='M')
-        tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='M')
+        tasks_p = Task.objects.filter(status__contains='P').filter(t_status__contains='M').filter(ocultar='False')
+        tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='M').filter(ocultar='False')
+        tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='M').filter(ocultar='False')
         return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
     else:
         raise PermissionDenied
@@ -106,9 +106,9 @@ def tareas_operarios(request):
     role_class = UserProfile.objects.filter(user=logged_user)
 
     if role_class.get().role == 'gestorsala' or role_class.get().role == 'operario' or role_class.get().role == 'admin':
-        tasks_p = Task.objects.filter(status__contains='P').filter(t_status__contains='O')
-        tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='O')
-        tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='O')
+        tasks_p = Task.objects.filter(status__contains='P').filter(t_status__contains='O').filter(ocultar='False')
+        tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='O').filter(ocultar='False')
+        tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='O').filter(ocultar='False')
         return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
     else:
         raise PermissionDenied
@@ -201,6 +201,20 @@ class UpdateTaskStatus(LoginRequiredMixin, UpdateView):
         else:
             raise PermissionDenied
 
+class UpdateTasktoFinish(LoginRequiredMixin, UpdateView):
+    template_name = 'update/update_task.html'
+    model = Task
+    success_url = '/application/' # segons el tipus de taska Operario o manteniment redireccionar al seu propi
+
+    fields = ['ocultar']
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede hacer uso de la clase aquellos usuarios con un rol disponible"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala' or role == 'operario' or role == 'mantenimiento':
+            return super(UpdateTasktoFinish, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
 
 class DeleteTask(LoginRequiredMixin,DeleteView):
     template_name = 'delete/delete_task.html'

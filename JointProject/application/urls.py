@@ -34,6 +34,7 @@ urlpatterns+=[
     path('tarea/update_all/<int:pk>', UpdateTaskAll.as_view(), name='task_update_all'),
     path('tarea/update_status/<int:pk>', UpdateTaskStatus.as_view(), name='task_update_status'),
     path('tarea/update_assigned/<int:pk>', UpdateAssignedTask.as_view(), name='task_update_assigned'),
+    path('tarea/update_finish/<int:pk>', UpdateTasktoFinish.as_view(), name='task_update_finish'),
 
     #DELETE
     path('tarea/delete_task/<int:pk>', DeleteTask.as_view(), name='task_delete'),

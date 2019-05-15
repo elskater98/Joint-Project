@@ -75,6 +75,7 @@ class Room (models.Model):
     largo = models.IntegerField()
     espacio_Total = models.IntegerField()
     espacio_Ocupado = models.IntegerField()
+    desponible = models.BooleanField(default=True)
 
 
     def __str__(self):
@@ -132,6 +133,8 @@ class Task(models.Model):
     assigned = models.ForeignKey(UserProfile, related_name='assignado', on_delete=models.CASCADE,null=True,blank=True) #Atribut opcional lliure eleccio per cada participant
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=256)
+
+    ocultar = models.BooleanField(default=False)
 
     def __str__(self):
         return '%s ~ %s'%(self.title,self.status)
