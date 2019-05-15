@@ -8,8 +8,9 @@ urlpatterns=[
 
 #MANIFIESTOS
 urlpatterns+=[
-    path('manifiesto_entrada/',manifiesto_entrada,name='manifiesto_entrada'),
-    path('manifiesto_salida/', manifiesto_salida, name='manifiesto_salida'),
+    path('manifiesto/entrada/',manifiesto_entrada,name='manifiesto_entrada'),
+    path('manifiesto/salida/', manifiesto_salida, name='manifiesto_salida'),
+    path('manifiesto/<int:pk>',ManifiestoDetail.as_view(),name='manifiest')
 ]
 
 #PRODUCTO

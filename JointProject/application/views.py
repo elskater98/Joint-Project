@@ -27,6 +27,18 @@ def manifiesto_entrada(request):
     else:
         raise PermissionDenied
 
+class ManifiestoDetail(DetailView):
+    template_name = 'details/manifest_detail.html'
+    model = Manifest
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala' or role == 'CEO':
+            return super(ManifiestoDetail, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
 
 def manifiesto_salida(request):
 
