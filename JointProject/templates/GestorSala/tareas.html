@@ -1,7 +1,27 @@
 {% extends 'generic.html' %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 {% block informacio %}
     {% if role_class.role == 'gestorsala' or role_class.role == 'admin' or role_class.role == 'operario'%}
+        <div class="container">
+            <form action="{% url 'api_request' %}" method="post">
+                {% csrf_token %}
+                    <table height=100% width=100%>
+                        <tr>
+                            <th>
+                                <input id="search" name="search" type="text" class="span5" placeholder="Referència"/>
+                            </th>
+                            <th>
+                                <button style="font-size:24px">Buscar <i class="fa fa-search"></i></button>
+                            </th>
+                        </tr>
+                    </table>
+            </form>
+        </div>
+
+
+
         <div style="margin-top:20px" class="container">
             <div class="row">
                 <div class="col">
@@ -133,16 +153,6 @@
 
                     {% endfor %}
                 </div>
-
-                <div>
-                    <form action="{% url 'api_request' %}" method="post">
-                        {% csrf_token %}
-                        <input id="search" name="search" type="text" class="query-search" placeholder="Search...">
-                        <input class="btn btn-primary" type="submit" value="submit">
-                    </form>
-                </div>
-
-            </div>
         </div>
     {% endif %}
 {% endblock %}
