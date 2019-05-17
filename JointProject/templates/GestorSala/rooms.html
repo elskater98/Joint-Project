@@ -14,9 +14,10 @@
         <table align="center" style="margin-top: 20px" width="400">
             {% for x in rooms %}
             <tr>
-                <th><a style="width: 300px; height: 75px" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
-                                 title="informació" data-content="Temperatura: <br /> Espacio:" href="{% url 'room_detail' x.pk %}"> {{x.nombre}}</a></th>
+                <th><a style="width: 300px; height: 175px" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
+                       title="informació" data-content="Temperatura: <br /> Espacio:" href="{% url 'room_detail' x.pk %}"> <h4>{{x.nombre}}</h4> <hr/> <h6><strong>Temperatura: </strong> {{ x.temperatura }}ºC  <br/> <strong>Medidas: </strong> {{ x.ancho}}m x {{x.largo}}m <br/> <strong>Esapcio Total: </strong> {{ x.espacio_Total}} <br/> <strong>Esapcio Ocupado: </strong> {{ x.espacio_Ocupado}}</h6></a>
 
+                </th>
             </tr>
             {% endfor %}
         </table>
