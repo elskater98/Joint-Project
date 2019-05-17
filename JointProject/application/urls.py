@@ -8,8 +8,9 @@ urlpatterns=[
 
 #MANIFIESTOS
 urlpatterns+=[
-    path('manifiesto_entrada/',manifiesto_entrada,name='manifiesto_entrada'),
-    path('manifiesto_salida/', manifiesto_salida, name='manifiesto_salida'),
+    path('manifiesto/entrada/',manifiesto_entrada,name='manifiesto_entrada'),
+    path('manifiesto/salida/', manifiesto_salida, name='manifiesto_salida'),
+    path('manifiesto/<int:pk>',ManifiestoDetail.as_view(),name='manifiest')
 ]
 
 #PRODUCTO
@@ -45,9 +46,13 @@ urlpatterns+=[
     path('salas/<int:pk>', room_details, name='room_detail'),
 ]
 
+
 #Manteniment-CEO
 urlpatterns+=[
     path('formulari/',CreatefCEO.as_view(), name='formCEO_create'),
     path('formulari/<int:pk>', CEOfDetailView.as_view(), name='formCEO_detail'),
-    path('form/', CEOflist, name='formCEO_list')
+    path('form/', CEOflist, name='formCEO_list'),
+    path('informes/', ceo_reports, name='reports'),
+    path('analisis/', ceo_analysis, name='economic_flow'),
 ]
+

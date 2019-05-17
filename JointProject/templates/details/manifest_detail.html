@@ -1,0 +1,17 @@
+{% extends 'generic.html' %}
+{% block title %}<title>Manifest {{ manifest.reference }}</title>{% endblock %}
+
+{% block informacio %}
+    {% if user.profile.role != 'operario' or user.profile.role != 'mantenimiento' %}
+        <div class="container" align="center">
+            <h1><strong>{{ manifest.reference}}</strong></h1>
+            <h5><strong> DATE : </strong> {{ manifest.date }}</h5>
+            <h5><strong>FROM :</strong> {{ manifest.from_d }}</h5>
+            <h5><strong>TO :</strong> {{ manifest.to_d }}</h5>
+            <h5><strong>TO :</strong> {{ manifest.to_d }}</h5>
+            <h5><strong>KIND :</strong> {{ manifest.kind_manifest }}</h5>
+        </div>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif%}
+{% endblock %}

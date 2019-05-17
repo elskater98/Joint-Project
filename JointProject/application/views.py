@@ -27,6 +27,18 @@ def manifiesto_entrada(request):
     else:
         raise PermissionDenied
 
+class ManifiestoDetail(DetailView):
+    template_name = 'details/manifest_detail.html'
+    model = Manifest
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala' or role == 'CEO':
+            return super(ManifiestoDetail, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
 
 def manifiesto_salida(request):
 
@@ -98,6 +110,26 @@ def tareas_operarios(request):
         tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='O')
         tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='O')
         return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
+    else:
+        raise PermissionDenied
+
+
+def ceo_reports(request):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'CEO' or role_class.get().role == 'admin':
+        return render(request, 'CEO/reports.html', context={'role_class': role_class.get()})
+    else:
+        raise PermissionDenied
+
+
+def ceo_analysis(request):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'CEO' or role_class.get().role == 'admin':
+        return render(request, 'CEO/analysis.html', context={'role_class': role_class.get()})
     else:
         raise PermissionDenied
 
