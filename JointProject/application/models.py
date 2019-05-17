@@ -38,19 +38,20 @@ class Client (models.Model):
 
 
 class Product (models.Model):
+    reference = models.CharField(max_length=64)
     name = models.CharField(max_length=64)
     qty = models.IntegerField()
-    delivery_date = models.DateField(null=True,blank=True,help_text="Seleccionar la fecha de salida")
-    client = models.ForeignKey(Client, related_name='es_de', on_delete=models.PROTECT, default='0')
-    manifest = models.ForeignKey(Manifest, related_name='es_troba', on_delete=models.PROTECT, default='0')
+    delivery_date = models.DateField(null=True, blank=True, help_text="Seleccionar la fecha de salida")
+    #client = models.ForeignKey(Client, related_name='es_de', on_delete=models.PROTECT, default='0')
+    #manifest = models.ForeignKey(Manifest, related_name='es_troba', on_delete=models.PROTECT, default='0')
     temp_max = models.IntegerField()
     temp_min = models.IntegerField()
     hum_max = models.IntegerField()
     hum_min = models.IntegerField()
-    sla = models.DateField(null=True, blank=True)
+    sla = models.CharField(max_length=64)
 
     def __str__(self):
-        return '%s ( %s - %s )' % (self.name,self.delivery_date, self.client)
+        return '%s ( %s - %s )' % (self.name, self.qty, self.reference)
 
 
 class Room (models.Model):

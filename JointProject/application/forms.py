@@ -5,4 +5,4 @@ from application.models import Task
 class TaskForm(ModelForm):
     class Meta:
         model = Task
-        exclude=('assigned',)
+        exclude = ('assigned',)

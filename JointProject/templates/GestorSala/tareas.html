@@ -134,6 +134,14 @@
                     {% endfor %}
                 </div>
 
+                <div>
+                    <form action="{% url 'api_request' %}" method="post">
+                        {% csrf_token %}
+                        <input id="search" name="search" type="text" class="query-search" placeholder="Search...">
+                        <input class="btn btn-primary" type="submit" value="submit">
+                    </form>
+                </div>
+
             </div>
         </div>
     {% endif %}

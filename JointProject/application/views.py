@@ -7,6 +7,90 @@ from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from application.forms import TaskForm
 from .models import *
 
+import json
+import urllib.request
+from bs4 import BeautifulSoup
+
+
+def api_request(request):
+    # https: // stackoverflow.com / questions / 44239822 / urllib - request - urlopenurl -with-authentication / 44239906
+        logged_user = request.user
+        role_class = UserProfile.objects.filter(user=logged_user)
+
+        reference = request.POST.get('search', '')
+
+
+        # print(referencia)
+    # if role_class.get().role == 'gestorsala':
+        # create a password manager
+        password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+
+        # Add the username and password.
+        # If we knew the realm, we could use it instead of None.
+        top_level_url = "https://ourfarms.herokuapp.com/apiRest/REF/?ref="+reference
+        password_mgr.add_password(None, top_level_url, "GR2", "gr2134567890")
+
+        handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
+
+        # create "opener" (OpenerDirector instance)
+        opener = urllib.request.build_opener(handler)
+
+        # use the opener to fetch a URL
+        products = opener.open("https://ourfarms.herokuapp.com/apiRest/REF/?ref="+reference)
+
+        soup = BeautifulSoup(products.read(), 'html.parser')
+        data = json.loads(soup.decode("utf-8"))   # items -> type list data is a list of the manifests
+
+        # print(type(data))
+        for manifest in data:
+            for key, value in manifest.items():  # busquem tots els productes diferents dins el manifest
+                if key == "Products":
+                    # print("I'm manifest",referencia,"and I have ", len(value), "products")  # value is a list
+                    for x in range(len(value)):  # iterem per cada producte que hi ha per veure els atributs
+                        # print("Product: ", x, "-->", value[x])
+                        for key_product, value_product in value[x].items():  # per para atribut que hi ah dels productes els guardem als models
+                            # print(key_product,value_product)
+                            if key_product == "name":
+                                name = value_product
+                            elif key_product == "qty":
+                                qty = value_product
+                            elif key_product == "tempMaxDegree":
+                                tempMaxDegree = value_product
+                            elif key_product == "tempMinDegree":
+                                tempMinDegree = value_product
+                            elif key_product == "humidMax":
+                                humidMax = value_product
+                            elif key_product == "humidMin":
+                                humidMin = value_product
+                            elif key_product == "sla":
+                                sla = value_product
+
+                        newmanifest = Product(name=name, reference=reference, qty=qty, temp_max=tempMaxDegree, temp_min=tempMinDegree,
+                                              hum_max=humidMax, hum_min=humidMin, sla=sla)
+
+
+                        newmanifest.save()
+
+            product = Product.objects.filter(reference=reference)
+
+        return render(request, 'GestorSala/productes_manifest.html', context={'role_class': role_class.get(), 'products': product, 'manifest': reference})
+
+
+class ApiReq (LoginRequiredMixin, DetailView):
+    template_name = 'GestorSala/productes_manifest.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(ApiReq, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala' or role == 'operario' or role == 'mantenimiento':
+            return super(ApiReq, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
 
 def homepage(request):
     # Obtencion rol del usuario
