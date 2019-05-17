@@ -86,13 +86,13 @@
                                                 <!--Formulario mantenimiento-CEO-->
                                                  {% if role_class.role == 'mantenimiento' or role_class.role == 'admin' %}
 
-                                                     <a  class=" nav-link"  href="{% url 'formCEO' %}">Formulari-CEO</a>
+                                                     <a  class=" nav-link"  href="{% url 'formCEO_create' %}">Formulari-CEO</a>
 
                                                 {% endif %}
                                                 <!--CEO-->
                                                 {% if role_class.role == 'CEO' or role_class.role == 'admin' %}
 
-                                                     <a  class=" nav-link"  href="{% url 'formCEof' %}">Formulari</a>
+                                                     <a  class=" nav-link"  href="{% url 'formCEO_list' %}">Formulari</a>
 
                                                 {% endif %}
 

@@ -234,7 +234,6 @@ class CEOfDetailView(LoginRequiredMixin,DetailView):
 
 class ListForms(ListView):
     queryset = CEOf.objects.all()
-    context_object_name = 'Ceof'
     template_name = 'CEOf.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -245,3 +244,14 @@ class ListForms(ListView):
         else:
             raise PermissionDenied
 
+def CEOflist(request):
+
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'admin' or role_class.get().role == 'CEO':
+        form = CEOf.objects.all()
+        return render(request=request, template_name="CEOf.html",
+                      context={'CEOf': form})
+    else:
+        raise PermissionDenied

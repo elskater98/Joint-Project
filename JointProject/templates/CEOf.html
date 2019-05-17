@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {% block Title %} <title>Costes</title> {% endblock %}
+    {% block Title %}<title>COSTES</title>{% endblock %}
 </head>
 <body>
-<h1>
-    COstes
-</h1>
-
 {% block informacio %}
-
+{% if user.profile.role == 'CEO' or user.profile.role == 'admin' %}
+    {% for x in CEOf %}
+        <div class="container" align="center"  style="margin-top: 20px">
+            <h5><strong>La tarea "{{ x.title }}" esta valorada en {{ x.cost }} € </strong><a href="{% url 'formCEO_detail' x.pk %}">Ver tarea</a></h5>
+        </div>
+    {% endfor %}
+{% endif %}
 {% endblock %}
 </body>
 </html>

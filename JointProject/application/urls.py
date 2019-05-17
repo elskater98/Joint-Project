@@ -47,7 +47,7 @@ urlpatterns+=[
 
 #Manteniment-CEO
 urlpatterns+=[
-    path('formulari/',CreatefCEO.as_view(), name='formCEO'),
-    path('formulari/<int:pk>', CEOfDetailView.as_view(), name='CEOf_detail'),
-    path('form/',ListForms.as_view(),name='formCEof')
+    path('formulari/',CreatefCEO.as_view(), name='formCEO_create'),
+    path('formulari/<int:pk>', CEOfDetailView.as_view(), name='formCEO_detail'),
+    path('form/', CEOflist, name='formCEO_list')
 ]
