@@ -1,0 +1,14 @@
+{% extends 'generic.html' %}
+{% block title %}<title>CEO form detail</title>{% endblock %}
+
+{% block informacio %}
+    {% if user.profile.role == 'CEO' or user.profile.role == 'admin' %}
+        <div class="container" align="center">
+            <h1><strong>{{ task.title }}</strong></h1>
+            <h5><strong> Tarea: </strong> {{ task.description }}</h5>
+            <h5><strong>Assignado a :</strong> {{ task.assigned.user }}</h5>
+        </div>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif%}
+{% endblock %}

@@ -133,8 +133,23 @@ class Task(models.Model):
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=256)
 
+    
+
     def __str__(self):
         return '%s ~ %s'%(self.title,self.status)
 
     def get_absolute_url(self):
         return reverse('task_detail', args=[str(self.id)])
+
+class CEOf(models.Model):
+
+    title = models.CharField(max_length=32)
+    description = models.TextField(max_length=256)
+    cost = models.IntegerField(blank="False")
+
+    def __str__(self):
+        return '%s ~ %i'%(self.title,self.cost)
+
+    def get_absolute_url(self):
+        return reverse('formulari_detail', args=[str(self.id)])
+

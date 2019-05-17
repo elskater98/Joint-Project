@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView,ListView
 
-from application.forms import TaskForm
+from application.forms import TaskForm,CEOForm
 from .models import *
 
 
@@ -201,3 +201,47 @@ class DeleteTask(LoginRequiredMixin,DeleteView):
             return super(DeleteTask, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+
+class CreatefCEO(LoginRequiredMixin,CreateView):
+    form_class = CEOForm
+    model = CEOf
+    success_url = '/application/'
+    template_name = 'create/create_CEOf.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreatefCEO, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'mantenimiento':
+            return super(CreatefCEO, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+class CEOfDetailView(LoginRequiredMixin,DetailView):
+    template_name = 'details/CEOf_detail.html'
+    model = CEOf
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'CEO':
+            return super(CEOfDetailView, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+class ListForms(ListView):
+    queryset = CEOf.objects.all()
+    context_object_name = 'Ceof'
+    template_name = 'CEOf.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'CEO':
+            return super(ListForms, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+

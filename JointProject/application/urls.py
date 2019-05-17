@@ -44,3 +44,10 @@ urlpatterns+=[
     path('salas/', ListRooms.as_view(), name='rooms'),
     path('salas/<int:pk>', room_details, name='room_detail'),
 ]
+
+#Manteniment-CEO
+urlpatterns+=[
+    path('formulari/',CreatefCEO.as_view(), name='formCEO'),
+    path('formulari/<int:pk>', CEOfDetailView.as_view(), name='CEOf_detail'),
+    path('form/',ListForms.as_view(),name='formCEof')
+]
