@@ -47,6 +47,7 @@ class Product (models.Model):
     temp_min = models.IntegerField()
     hum_max = models.IntegerField()
     hum_min = models.IntegerField()
+    sla = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return '%s ( %s - %s )' % (self.name,self.delivery_date, self.client)
