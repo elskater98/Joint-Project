@@ -43,6 +43,14 @@
                                                         </div>
                                                         </li>
                                                     {% endif %}
+                                                    {% if role_class.role == 'CEO' or role_class.role == 'admin'%}
+                                                        <li class="nav-item">
+                                                            <a class=" nav-link" href="{% url 'reports' %}"> Informes</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                        <a class=" nav-link" href="{% url 'economic_flow' %}"> Flujo Económico</a>
+                                                        </li>
+                                                    {% endif %}
                                                     <!-- Salas-->
                                                     {% if role_class.role == 'gestorsala' or role_class.role == 'admin' or role_class.role == 'operario'%}
                                                         <li class="nav-item">

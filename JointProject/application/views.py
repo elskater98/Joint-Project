@@ -114,6 +114,26 @@ def tareas_operarios(request):
         raise PermissionDenied
 
 
+def ceo_reports(request):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'CEO' or role_class.get().role == 'admin':
+        return render(request, 'CEO/reports.html', context={'role_class': role_class.get()})
+    else:
+        raise PermissionDenied
+
+
+def ceo_analysis(request):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'CEO' or role_class.get().role == 'admin':
+        return render(request, 'CEO/analysis.html', context={'role_class': role_class.get()})
+    else:
+        raise PermissionDenied
+
+
 class TaskDetailView(LoginRequiredMixin,DetailView):
     template_name = 'details/task_detail.html'
     model = Task

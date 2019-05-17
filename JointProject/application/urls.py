@@ -45,3 +45,8 @@ urlpatterns+=[
     path('salas/', ListRooms.as_view(), name='rooms'),
     path('salas/<int:pk>', room_details, name='room_detail'),
 ]
+
+urlpatterns += [
+    path('informes/', ceo_reports, name='reports'),
+    path('analisis/', ceo_analysis, name='economic_flow'),
+]
