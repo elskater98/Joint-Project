@@ -52,6 +52,7 @@ urlpatterns+=[
     path('formulari/',CreatefCEO.as_view(), name='formCEO_create'),
     path('formulari/<int:pk>', CEOfDetailView.as_view(), name='formCEO_detail'),
     path('form/', CEOflist, name='formCEO_list'),
+    path('tarea/delete_CEOf/<int:pk>', DeletefCEO.as_view(), name='CEOf_delete'),
     path('informes/', ceo_reports, name='reports'),
     path('analisis/', ceo_analysis, name='economic_flow'),
 ]

@@ -287,3 +287,15 @@ def CEOflist(request):
                       context={'CEOf': form})
     else:
         raise PermissionDenied
+
+class DeletefCEO(LoginRequiredMixin,DeleteView):
+    template_name = 'delete/CEOf_delete.html'
+    model = CEOf
+    success_url = '/application/'
+
+    def dispatch(self, request, *args, **kwargs):
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'CEO':
+            return super(DeletefCEO, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
