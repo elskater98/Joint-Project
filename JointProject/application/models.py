@@ -12,7 +12,7 @@ class Manifest(models.Model):
     date = models.DateField(null=True,blank=True,help_text="Seleccione la fecha de entrada")
     from_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='From')
     to_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='To')
-    withdrawal = models.BooleanField()
+
 
     def __str__(self):
         return 'Ref: %s ( %s )' % (self.reference,self.date)
@@ -49,7 +49,6 @@ class Client (models.Model):
 
 class Product (models.Model):
     name = models.CharField(max_length=64)
-    qty = models.IntegerField()
     delivery_date = models.DateField(null=True,blank=True,help_text="Seleccionar la fecha de salida")
     client = models.ForeignKey(Client, related_name='es_de', on_delete=models.PROTECT, default='0')
     manifest = models.ForeignKey(Manifest, related_name='es_troba', on_delete=models.PROTECT, default='0')

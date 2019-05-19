@@ -13,11 +13,6 @@ urlpatterns+=[
     path('manifiesto/<int:pk>',ManifiestoDetail.as_view(),name='manifiest')
 ]
 
-#PRODUCTO
-urlpatterns+=[
-    path('product/<int:pk>',product_details,name='product_detail'),
-]
-
 #TAREAS
 urlpatterns+=[
     #VISTA
@@ -45,4 +40,5 @@ urlpatterns+=[
     path('salas/', ListRooms.as_view(), name='rooms'),
     path('salas/<int:pk>', room_details, name='room_detail'),
     path('salas/<int:pk>/tareas', room_tareas, name='room_tareas'),
+    path('salas/<int:pk>/products',product_details,name='product_detail'),
 ]
