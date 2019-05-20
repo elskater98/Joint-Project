@@ -1,5 +1,5 @@
 {% extends 'generic.html' %}
-<html lang="en">
+<!--<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>SALAS</title>
@@ -8,21 +8,53 @@
 <h1>
     SALAS
 </h1>
-
+-->
 {% block informacio %}
-    <tr style="margin-top:20px" class="container">
-        <table align="center" style="margin-top: 20px" width="400">
-            {% for x in rooms %}
-            <tr>
-                <th><a style="width: 300px; height: 175px" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
-                       title="informació" data-content="Temperatura: <br /> Espacio:" href="{% url 'room_detail' x.pk %}"> <h4>{{x.nombre}}</h4> <hr/> <h6><strong>Temperatura: </strong> {{ x.temperatura }}ºC  <br/> <strong>Medidas: </strong> {{ x.ancho}}m x {{x.largo}}m <br/> <strong>Esapcio Total: </strong> {{ x.espacio_Total}} <br/> <strong>Esapcio Ocupado: </strong> {{ x.espacio_Ocupado}}</h6></a>
+    <div style="margin-top:20px" class="container">
+        <div class="row">
+            <div class="col">
+                <h4 align="center">Frío</h4>
+                {% for room in cold %}
+                        <div>
+                            <a style="width: 300px; height: 175px" tabindex="0" class="btn btn-lg btn-primary" role="button" data-toggle="popover" data-trigger="focus"
+                            title="informació" data-content="Temperatura: <br /> Espacio:" href="{% url 'room_detail' room.pk %}"> <h4>{{room.nombre}}</h4> <hr/>
+                                <h6><strong>Temperatura: </strong> {{ room.temperatura }}ºC  <br/>
+                                <strong>Medidas: </strong> {{ room.ancho}}m x {{room.largo}}m <br/>
+                                <strong>Espacio Total: </strong> {{ room.espacio_Total}} <br/>
+                                <strong>Espacio Ocupado: </strong> {{ room.espacio_Ocupado}}</h6></a>
+                        </div>
+                {% endfor %}
+            </div>
 
-                </th>
-            </tr>
-            {% endfor %}
-        </table>
-    </tr>
+            <div class="col">
+                <h4 align="center">Mixto</h4>
+                    {% for room in mixed %}
+                        <div>
+                            <a style="width: 300px; height: 175px" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
+                            title="informació" data-content="Temperatura: <br /> Espacio:" href="{% url 'room_detail' room.pk %}"> <h4>{{room.nombre}}</h4> <hr/>
+                                <h6><strong>Temperatura: </strong> {{ room.temperatura }}ºC  <br/>
+                                <strong>Medidas: </strong> {{ room.ancho}}m x {{room.largo}}m <br/>
+                                <strong>Espacio Total: </strong> {{ room.espacio_Total}} <br/>
+                                <strong>Espacio Ocupado: </strong> {{ room.espacio_Ocupado}}</h6></a>
+                        </div>
+                    {% endfor %}
+            </div>
 
+            <div class="col">
+                <h4 align="center">Mixto</h4>
+                    {% for room in normal %}
+                        <div>
+                            <a style="width: 300px; height: 175px" tabindex="0" class="btn btn-lg btn-warning" role="button" data-toggle="popover" data-trigger="focus"
+                            title="informació" data-content="Temperatura: <br /> Espacio:" href="{% url 'room_detail' room.pk %}"> <h4>{{room.nombre}}</h4> <hr/>
+                                <h6><strong>Temperatura: </strong> {{ room.temperatura }}ºC  <br/>
+                                <strong>Medidas: </strong> {{ room.ancho}}m x {{room.largo}}m <br/>
+                                <strong>Espacio Total: </strong> {{ room.espacio_Total}} <br/>
+                                <strong>Espacio Ocupado: </strong> {{ room.espacio_Ocupado}}</h6></a>
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
 </body>
 </html>

@@ -36,7 +36,6 @@ class Dimension (models.Model):
         return '%s x %s x %s' % (self.long_cm, self.width_cm, self.height_cm)
 
 
-
 class Client (models.Model):
     DNI = models.CharField(max_length=9)
     name = models.CharField(max_length=64)
@@ -63,12 +62,13 @@ class Product (models.Model):
 
 class Room (models.Model):
     nombre = models.CharField(max_length=64)
+    R_STATUS = (('F', 'Frio'), ('M', 'Mixto'), ('N', 'Normal'))
+    r_status = models.CharField(max_length=1, choices=R_STATUS, blank=False, default='N')
     temperatura = models.IntegerField()
     ancho = models.IntegerField()
     largo = models.IntegerField()
     espacio_Total = models.IntegerField()
     espacio_Ocupado = models.IntegerField()
-
 
     def __str__(self):
         return '%s %iCº %ix%i %i/%i ' % (self.nombre,self.temperatura,self.ancho,self.largo,self.espacio_Ocupado,self.espacio_Total)
@@ -94,16 +94,16 @@ class Location (models.Model):
     def __str__(self):
         return 'Pas:%sPres:%sH:%s-%s ' % (self.aisle,self.shelf,self.space,self.room)
 
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name="profile",on_delete=models.SET_DEFAULT,default=0)
     ROLE_STATUS =(('admin','admin'),('gestorsala','gestor de sala'),('operario','operario'),('mantenimiento','operario de mantenimiento'),('CEO','CEO'))
     role = models.CharField(max_length=32, choices=ROLE_STATUS, blank=False, default='operario') #Null true and blank true ?¿
 
-
     def __str__(self):
         return 'User: %s Role: %s' % (self.user,self.role)
- #Permet inclour els atributs a la clase User {{user.profile.role}}
-    @receiver(post_save, sender=User)
+
+    @receiver(post_save, sender=User)  # Permet inclour els atributs a la clase User {{user.profile.role}}
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
             UserProfile.objects.create(user=instance)
@@ -111,6 +111,7 @@ class UserProfile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
+
 
 class Task(models.Model):
     T_STATUS = (('M', 'Manteniment'), ('O', 'Operarios'))

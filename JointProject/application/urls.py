@@ -37,7 +37,7 @@ urlpatterns+=[
 
 #SALAS
 urlpatterns+=[
-    path('salas/', ListRooms.as_view(), name='rooms'),
+    path('salas/', rooms, name='rooms'),
     path('salas/<int:pk>', room_details, name='room_detail'),
     path('salas/<int:pk>/tareas', room_tareas, name='room_tareas'),
     path('salas/<int:pk>/products',product_details,name='product_detail'),
