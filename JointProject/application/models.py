@@ -62,7 +62,6 @@ class Room (models.Model):
     espacio_Total = models.IntegerField()
     espacio_Ocupado = models.IntegerField()
 
-
     def __str__(self):
         return '%s %iCº %ix%i %i/%i ' % (self.nombre,self.temperatura,self.ancho,self.largo,self.espacio_Ocupado,self.espacio_Total)
 

@@ -19,7 +19,6 @@ def api_request(request):
 
         reference = request.POST.get('search', '')
 
-
         # print(referencia)
     # if role_class.get().role == 'gestorsala':
         # create a password manager
@@ -41,39 +40,55 @@ def api_request(request):
         soup = BeautifulSoup(products.read(), 'html.parser')
         data = json.loads(soup.decode("utf-8"))   # items -> type list data is a list of the manifests
 
-        # print(type(data))
-        for manifest in data:
-            for key, value in manifest.items():  # busquem tots els productes diferents dins el manifest
-                if key == "Products":
-                    # print("I'm manifest",referencia,"and I have ", len(value), "products")  # value is a list
-                    for x in range(len(value)):  # iterem per cada producte que hi ha per veure els atributs
-                        # print("Product: ", x, "-->", value[x])
-                        for key_product, value_product in value[x].items():  # per para atribut que hi ah dels productes els guardem als models
-                            # print(key_product,value_product)
-                            if key_product == "name":
-                                name = value_product
-                            elif key_product == "qty":
-                                qty = value_product
-                            elif key_product == "tempMaxDegree":
-                                tempMaxDegree = value_product
-                            elif key_product == "tempMinDegree":
-                                tempMinDegree = value_product
-                            elif key_product == "humidMax":
-                                humidMax = value_product
-                            elif key_product == "humidMin":
-                                humidMin = value_product
-                            elif key_product == "sla":
-                                sla = value_product
+        if data:  # comproves si la llista NO es buida, si ho es, es que la ref no es correcta
+            # print(type(data))
+            for manifest in data:
+                for key, value in manifest.items():  # busquem tots els productes diferents dins el manifest
+                    if key == "ref":
+                        ref = value
+                    elif key == "withdrawal":
+                        withdrawal = value
+                    elif key == "fromLocation":
+                        fromLocation = value
+                    elif key == "toLocation":
+                        toLocation = value
+                    elif key == "totalpackets":
+                        totalpackets = value
+                    elif key == "Products":
+                        # print("I'm manifest",referencia,"and I have ", len(value), "products")  # value is a list
+                        for x in range(len(value)):  # iterem per cada producte que hi ha per veure els atributs
+                            # print("Product: ", x, "-->", value[x])
+                            for key_product, value_product in value[x].items():  # per para atribut que hi ah dels productes els guardem als models
+                                # print(key_product,value_product)
+                                if key_product == "name":
+                                    name = value_product
+                                elif key_product == "qty":
+                                    qty = value_product
+                                elif key_product == "tempMaxDegree":
+                                    tempMaxDegree = value_product
+                                elif key_product == "tempMinDegree":
+                                    tempMinDegree = value_product
+                                elif key_product == "humidMax":
+                                    humidMax = value_product
+                                elif key_product == "humidMin":
+                                    humidMin = value_product
+                                elif key_product == "sla":
+                                    sla = value_product
 
-                        newmanifest = Product(name=name, reference=reference, qty=qty, temp_max=tempMaxDegree, temp_min=tempMinDegree,
-                                              hum_max=humidMax, hum_min=humidMin, sla=sla)
+                            newproduct = Product(name=name, reference=reference, qty=qty, temp_max=tempMaxDegree, temp_min=tempMinDegree,
+                                                  hum_max=humidMax, hum_min=humidMin, sla=sla)
 
+                            newproduct.save()
 
-                        newmanifest.save()
+                newmanifest = Manifest(reference=ref, withdrawal=withdrawal, fromLocation=fromLocation, toLocation=toLocation, totalPackets=totalpackets)
+                newmanifest.save()
 
-            product = Product.objects.filter(reference=reference)
+                product = Product.objects.filter(reference=reference)
 
-        return render(request, 'GestorSala/productes_manifest.html', context={'role_class': role_class.get(), 'products': product, 'manifest': reference})
+            return render(request, 'GestorSala/productes_manifest.html', context={'role_class': role_class.get(), 'products': product, 'manifest': reference})
+        else:
+            product = []
+            return render(request, 'GestorSala/productes_manifest.html', context={'role_class': role_class.get(), 'products': product})
 
 
 class ApiReq (LoginRequiredMixin, DetailView):
@@ -106,7 +121,7 @@ def manifiesto_entrada(request):
     role_class = UserProfile.objects.filter(user=logged_user)
 
     if role_class.get().role == 'gestorsala'or role_class.get().role == 'admin' or role_class.get().role == 'CEO':
-        manifest = Manifest.objects.filter(kind_manifest__contains='E')
+        manifest = Manifest.objects.all()
         return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest':manifest,'role_class':role_class.get()})
     else:
         return redirect('/')
