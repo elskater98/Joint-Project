@@ -66,11 +66,10 @@ class Room (models.Model):
     ancho = models.PositiveIntegerField()
     largo = models.PositiveIntegerField()
     espacio_Total = models.PositiveIntegerField()
-    espacio_Ocupado = models.PositiveIntegerField()
+    espacio_Ocupado = models.ForeignKey('Container', on_delete=models.SET_DEFAULT, default=0)
 
     def __str__(self):
-        return '%s %iCº %ix%i %i/%i ' % (self.nombre, self.temperatura, self.ancho, self.largo,
-                                         self.espacio_Ocupado, self.espacio_Total)
+        return '%s %iCº %ix%i %i' % (self.nombre, self.temperatura, self.ancho, self.largo, self.espacio_Total)
 
 
 class Container (models.Model):
