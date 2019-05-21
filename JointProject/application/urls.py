@@ -1,8 +1,13 @@
 from django.urls import path
 from .views import *
+from django.conf.urls import url
 
 urlpatterns=[
     path('',homepage,name='homepage'),
+
+    url(r'^manifiesto_entrada/(?P<pk>\d+)/$',
+        detalls_product,
+        name='detalls_product'),
 ]
 
 #MANIFIESTOS
@@ -10,6 +15,7 @@ urlpatterns+=[
     path('manifiesto/entrada/',manifiesto_entrada,name='manifiesto_entrada'),
     path('manifiesto/salida/', manifiesto_salida, name='manifiesto_salida'),
     path('manifiesto/',api_request,name='api_request'),
+
 ]
 
 #PRODUCTO

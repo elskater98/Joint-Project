@@ -156,6 +156,11 @@ def room_details(request, pk):
     else:
         raise PermissionDenied
 
+def detalls_product(request, pk):
+    reference = pk
+    products = Product.objects.filter(reference=reference)
+
+    return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference,})
 
 def product_details (request, pk):
     logged_user = request.user
