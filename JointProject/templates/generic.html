@@ -43,14 +43,31 @@
                                                         </div>
                                                         </li>
                                                     {% endif %}
+                                                    {% if role_class.role == 'CEO' or role_class.role == 'admin'%}
+                                                        <li class="nav-item">
+                                                            <a class=" nav-link" href="{% url 'reports' %}"> Informes</a>
+                                                        </li>
+                                                        <li class="nav-item dropdown">
+                                                        <a class=" nav-link dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Flujo Económico</a>
+                                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        <a class="dropdown-item" href="{% url 'manifiesto_entrada' %}">Manifiestos entrada</a>
+                                                        <div class="dropdown-divider">
+                                                        </div>
+                                                            <a class="dropdown-item" href="{% url 'manifiesto_salida' %}">Manifiestos salida</a>
+                                                             <div class="dropdown-divider">
+                                                        </div>
+                                                        <a class="dropdown-item" href="{% url 'economic_flow' %}">Flujo econcómico</a>
+                                                        </div>
+                                                        </li>
+                                                    {% endif %}
                                                     <!-- Salas-->
-                                                    {% if role_class.role == 'gestorsala' or role_class.role == 'admin' or role_class.role == 'operario'%}
+                                                    {% if role_class.role == 'gestorsala' or role_class.role == 'admin' or role_class.role == 'operario' or role_class.role == 'mantenimiento'%}
                                                         <li class="nav-item">
                                                         <a class=" nav-link" href="{% url 'rooms' %}"> Salas</a>
                                                         </li>
                                                     {% endif %}
                                                     <!-- Tareas-->
-                                                    {% if role_class.role == 'gestorsala' or role_class.role == 'admin' or role_class.role == 'operario'%}
+                                                    {% if role_class.role == 'gestorsala' or role_class.role == 'admin'%}
                                                         <li class="nav-item dropdown">
                                                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             Tareas
@@ -70,6 +87,33 @@
                                                             </div>
                                                         </li>
                                                     {% endif %}
+                                                    {% if role_class.role == 'mantenimiento' or role_class.role == 'operario' %}
+                                                            <div>
+                                                                <!-- Tareas Mantenimiento-->
+                                                                {% if role_class.role == 'mantenimiento'%}
+                                                                    <a  class=" nav-link"  href="{% url 'tareas_mantenimiento' %}">Tareas</a>
+                                                                {% endif %}
+                                                                <!-- Tareas Operario-->
+                                                                {% if role_class.role == 'operario'%}
+                                                                    <a  class=" nav-link"  href="{% url 'tareas_operarios' %}">Tareas</a>
+                                                                {% endif %}
+                                                            </div>
+                                                        </li>
+                                                    {% endif %}
+                                                <!--Formulario mantenimiento-CEO-->
+                                                 {% if role_class.role == 'mantenimiento' or role_class.role == 'admin' %}
+
+                                                     <a  class=" nav-link"  href="{% url 'formCEO_create' %}">Formulari-CEO</a>
+
+                                                {% endif %}
+                                                <!--CEO-->
+                                                {% if role_class.role == 'CEO' or role_class.role == 'admin' %}
+
+                                                     <a  class=" nav-link"  href="{% url 'formCEO_list' %}">Formulari</a>
+
+                                                {% endif %}
+
+
                                                 </ul>
 
                                                 <ul class="navbar-nav margin-right: auto">

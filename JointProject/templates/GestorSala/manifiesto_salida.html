@@ -18,7 +18,8 @@
                     </table>
             </form>
         </div>
-
+    {% endif %}
+    {% if role_class.role == 'gestorsala' or role_class.role == 'admin' or role_class.role == 'CEO' %}
         <div class="container text-center">
             <div style="margin-bottom: 20px ">
                 <h2 align="center" style="color: #0d0d0d">Manifiestos de Salida</h2>

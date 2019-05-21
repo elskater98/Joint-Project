@@ -1,0 +1,17 @@
+{% extends 'generic.html' %}
+{% block title %}<title>Descartar Tarea</title>{% endblock %}
+
+{% block informacio %}
+    {% if user.profile.role == 'CEO' or user.profile.role == 'admin' %}
+         <div align="center" style="margin-top: 20px" class="container">
+            <div align="center" style="margin-top: 20px" class="list-group">
+                <form  style="margin-top: 20px; align-content: center" method="post">{% csrf_token %}
+                    <h5><strong>Quieres descartar la tarea "{{ ceof.title }}"?</strong></h5>
+                    <input type="submit" value="Confirmar">
+                </form>
+              </div>
+        </div>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif%}
+{% endblock %}

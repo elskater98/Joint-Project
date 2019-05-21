@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
-
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 from application.forms import TaskForm
 from application.models import Container, Task
+from application.forms import TaskForm,CEOForm
 from .models import *
 
 import json
@@ -275,6 +275,26 @@ def tareas_operarios(request):
         raise PermissionDenied
 
 
+def ceo_reports(request):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'CEO' or role_class.get().role == 'admin':
+        return render(request, 'CEO/reports.html', context={'role_class': role_class.get()})
+    else:
+        raise PermissionDenied
+
+
+def ceo_analysis(request):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'CEO' or role_class.get().role == 'admin':
+        return render(request, 'CEO/analysis.html', context={'role_class': role_class.get()})
+    else:
+        raise PermissionDenied
+
+
 class TaskDetailView(LoginRequiredMixin,DetailView):
     template_name = 'details/task_detail.html'
     model = Task
@@ -387,6 +407,7 @@ class DeleteTask(LoginRequiredMixin,DeleteView):
             raise PermissionDenied
 
 
+
 class ChangeRoom(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task.html'
     model = Container
@@ -396,6 +417,73 @@ class ChangeRoom(LoginRequiredMixin,UpdateView):
         role = self.request.user.profile.role
         if role == 'admin' or role == 'gestorsala':
             return super(ChangeRoom, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+
+class CreatefCEO(LoginRequiredMixin,CreateView):
+    form_class = CEOForm
+    model = CEOf
+    success_url = '/application/'
+    template_name = 'create/create_CEOf.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreatefCEO, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'mantenimiento':
+            return super(CreatefCEO, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+class CEOfDetailView(LoginRequiredMixin,DetailView):
+    template_name = 'details/CEOf_detail.html'
+    model = CEOf
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'CEO':
+            return super(CEOfDetailView, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+class ListForms(ListView):
+    queryset = CEOf.objects.all()
+    template_name = 'CEOf.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'CEO':
+            return super(ListForms, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+def CEOflist(request):
+
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'admin' or role_class.get().role == 'CEO':
+        form = CEOf.objects.all()
+        return render(request=request, template_name="CEOf.html",
+                      context={'CEOf': form})
+    else:
+        raise PermissionDenied
+
+class DeletefCEO(LoginRequiredMixin,DeleteView):
+    template_name = 'delete/CEOf_delete.html'
+    model = CEOf
+    success_url = '/application/'
+
+    def dispatch(self, request, *args, **kwargs):
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'CEO':
+            return super(DeletefCEO, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
 

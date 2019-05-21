@@ -1,0 +1,18 @@
+{% extends 'generic.html' %}
+{% block title %}<title>CEO form detail</title>{% endblock %}
+
+{% block informacio %}
+    {% if user.profile.role == 'CEO' or user.profile.role == 'admin' %}
+        <div class="container" align="center">
+            <h1><strong>{{ ceof.title}}</strong></h1>
+            <h5><strong> Descripción: </strong> {{ ceof.description }}</h5>
+            <h5><strong> Coste: </strong> {{ ceof.cost }} €</h5>
+            <div >
+                <h5><a href="#">Aceptar Tarea</a></h5>
+            <h5><a href="{% url 'CEOf_delete' ceof.pk %}">Descartar</a></h5>
+            </div>
+            </div>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif%}
+{% endblock %}

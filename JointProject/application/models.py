@@ -121,7 +121,6 @@ class Task(models.Model):
     sala = models.ForeignKey(Room, related_name='relacionado_con', on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=32)
     description = models.TextField(max_length=256)
-
     ocultar = models.BooleanField(default=False)
 
     def __str__(self):
@@ -129,3 +128,16 @@ class Task(models.Model):
 
     def get_absolute_url(self):
         return reverse('task_detail', args=[str(self.id)])
+
+class CEOf(models.Model):
+
+    title = models.CharField(max_length=32)
+    description = models.TextField(max_length=256)
+    cost = models.IntegerField(blank="False")
+
+    def __str__(self):
+        return '%s ~ %i'%(self.title,self.cost)
+
+    def get_absolute_url(self):
+        return reverse('formulari_detail', args=[str(self.id)])
+
