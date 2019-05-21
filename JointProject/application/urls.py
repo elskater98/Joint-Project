@@ -1,4 +1,3 @@
-from django.views.generic import ListView
 from django.urls import path
 from .views import *
 
@@ -10,7 +9,7 @@ urlpatterns=[
 urlpatterns+=[
     path('manifiesto/entrada/',manifiesto_entrada,name='manifiesto_entrada'),
     path('manifiesto/salida/', manifiesto_salida, name='manifiesto_salida'),
-    path('manifiesto/<int:pk>',ManifiestoDetail.as_view(),name='manifiest')
+    path('manifiest/',api_request,name='manifiest'),
 ]
 
 #PRODUCTO

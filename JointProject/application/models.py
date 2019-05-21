@@ -9,24 +9,15 @@ from django.urls import reverse
 
 class Manifest(models.Model):
     reference = models.CharField(max_length = 11, primary_key=True)
-    date = models.DateField(null=True,blank=True,help_text="Seleccione la fecha de entrada")
-    from_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='From')
-    to_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='To')
-
-    MANIFEST_STATUS =(('E','Entrada'),('S','Salida'))
-    kind_manifest = models.CharField(max_length=1,choices=MANIFEST_STATUS,blank=False,default='E')
-
-    def __str__(self):
-        return 'Ref: %s ( %s )' % (self.reference,self.date)
-
-
-class Address(models.Model):
-
-    address = models.CharField(max_length=64, help_text="Inserte la direccion")
-    postal_code = models.CharField(max_length=5, help_text="Inserte el codigo postal")
+    fromLocation = models.CharField(max_length=64)
+    toLocation = models.CharField(max_length=64)
+    withdrawal = models.BooleanField()
+    totalPackets = models.IntegerField()
+    creationDate = models.DateField(null=True, blank=True, help_text="Seleccione la fecha de creación")
+    revisionDate = models.DateField(null=True, blank=True, help_text="Seleccione la fecha de revisión")
 
     def __str__(self):
-        return 'Postal Code: %s - Address: %s' % (self.postal_code, self.address)
+        return 'Ref: %s ( %s )' % (self.reference,self.creationDate)
 
 
 class Dimension (models.Model):
@@ -38,34 +29,30 @@ class Dimension (models.Model):
         return '%s x %s x %s' % (self.long_cm, self.width_cm, self.height_cm)
 
 
-class Level_Agreement (models.Model):
-    temp_max = models.IntegerField()
-    temp_min = models.IntegerField()
-    hum_max = models.IntegerField()
-    hum_min = models.IntegerField()
-
-    def __str__(self):
-        return 'temp: (%s - %s) hum:( %s - %s )' % (self.temp_max,self.temp_min,self.hum_max,self.hum_min)
-
 class Client (models.Model):
     DNI = models.CharField(max_length=9)
     name = models.CharField(max_length=64)
     surname = models.CharField(max_length=64)
-    lives_in = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, related_name='domicili')
 
     def __str__(self):
         return ' %s %s ' % (self.name, self.surname)
 
 
 class Product (models.Model):
+    reference = models.CharField(max_length=64)
     name = models.CharField(max_length=64)
-    delivery_date = models.DateField(null=True,blank=True,help_text="Seleccionar la fecha de salida")
-    level_agreement = models.ForeignKey(Level_Agreement,related_name='te',on_delete=models.PROTECT,default='0')
-    client = models.ForeignKey(Client, related_name='es_de', on_delete=models.PROTECT, default='0')
-    manifest = models.ForeignKey(Manifest, related_name='es_troba', on_delete=models.PROTECT, default='0')
+    qty = models.IntegerField()
+    delivery_date = models.DateField(null=True, blank=True, help_text="Seleccionar la fecha de salida")
+    #client = models.ForeignKey(Client, related_name='es_de', on_delete=models.PROTECT, default='0')
+    #manifest = models.ForeignKey(Manifest, related_name='es_troba', on_delete=models.PROTECT, default='0')
+    temp_max = models.IntegerField()
+    temp_min = models.IntegerField()
+    hum_max = models.IntegerField()
+    hum_min = models.IntegerField()
+    sla = models.CharField(max_length=64)
 
     def __str__(self):
-        return '%s ( %s - %s )' % (self.name,self.delivery_date, self.client)
+        return '%s ( %s - %s )' % (self.name, self.qty, self.reference)
 
 
 class Room (models.Model):
@@ -76,7 +63,6 @@ class Room (models.Model):
     espacio_Total = models.IntegerField()
     espacio_Ocupado = models.IntegerField()
     desponible = models.BooleanField(default=True)
-
 
     def __str__(self):
         return '%s %iCº %ix%i %i/%i ' % (self.nombre,self.temperatura,self.ancho,self.largo,self.espacio_Ocupado,self.espacio_Total)
