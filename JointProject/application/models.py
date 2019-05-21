@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-# Create your models here.
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
@@ -12,7 +10,6 @@ class Manifest(models.Model):
     date = models.DateField(null=True,blank=True,help_text="Seleccione la fecha de entrada")
     from_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='From')
     to_d = models.ForeignKey('Address',on_delete=models.SET_NULL,null=True,related_name='To')
-
 
     def __str__(self):
         return 'Ref: %s ( %s )' % (self.reference,self.date)
@@ -61,17 +58,19 @@ class Product (models.Model):
 
 
 class Room (models.Model):
-    nombre = models.CharField(max_length=64)
     R_STATUS = (('F', 'Frio'), ('M', 'Mixto'), ('N', 'Normal'))
-    r_status = models.CharField(max_length=1, choices=R_STATUS, blank=False, default='N')
+
+    nombre = models.CharField(max_length=64)
+    room_status = models.CharField(max_length=1, choices=R_STATUS, blank=False, default='N')
     temperatura = models.IntegerField()
-    ancho = models.IntegerField()
-    largo = models.IntegerField()
-    espacio_Total = models.IntegerField()
-    espacio_Ocupado = models.IntegerField()
+    ancho = models.PositiveIntegerField()
+    largo = models.PositiveIntegerField()
+    espacio_Total = models.PositiveIntegerField()
+    espacio_Ocupado = models.PositiveIntegerField()
 
     def __str__(self):
-        return '%s %iCº %ix%i %i/%i ' % (self.nombre,self.temperatura,self.ancho,self.largo,self.espacio_Ocupado,self.espacio_Total)
+        return '%s %iCº %ix%i %i/%i ' % (self.nombre, self.temperatura, self.ancho, self.largo,
+                                         self.espacio_Ocupado, self.espacio_Total)
 
 
 class Container (models.Model):

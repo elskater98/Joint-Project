@@ -1,8 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
-from django.shortcuts import redirect
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView,ListView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from application.forms import TaskForm
 from .models import *
@@ -11,7 +10,7 @@ from .models import *
 def homepage(request):
     # Obtencion rol del usuario
     logged_user = request.user
-    role_class = UserProfile.objects.filter(user = logged_user)
+    role_class = UserProfile.objects.filter(user=logged_user)
 
     return render(request,'generic.html',context={'role_class':role_class.get()})
 
@@ -26,6 +25,7 @@ def manifiesto_entrada(request):
         return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest':manifest,'role_class':role_class.get()})
     else:
         raise PermissionDenied
+
 
 class ManifiestoDetail(DetailView):
     template_name = 'details/manifest_detail.html'
@@ -51,6 +51,7 @@ def manifiesto_salida(request):
     else:
         raise PermissionDenied
 
+
 def room_details(request, pk):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
@@ -61,6 +62,7 @@ def room_details(request, pk):
         return render(request=request, template_name="details/room_detail.html", context={'containers': containers,'room': room})
     else:
         raise PermissionDenied
+
 
 def room_tareas(request, pk):
     logged_user = request.user
@@ -74,7 +76,7 @@ def room_tareas(request, pk):
         raise PermissionDenied
 
 
-def product_details (request, pk):
+def product_details(request, pk):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
 
@@ -90,10 +92,11 @@ def rooms(request):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
 
-    if role_class.get().role == 'gestorsala' or role_class.get().role == 'mantenimiento' or role_class.get().role == 'admin' or role_class.get().role == 'operario':
-        rooms_c = Room.objects.filter(r_status__contains='F')  # Cold
-        rooms_m = Room.objects.filter(r_status__contains='M')  # Mixed
-        rooms_n = Room.objects.filter(r_status__contains='N')  # Normal
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'mantenimiento' or \
+            role_class.get().role == 'admin' or role_class.get().role == 'operario':
+        rooms_c = Room.objects.filter(room_status__contains='F')  # Cold
+        rooms_m = Room.objects.filter(room_status__contains='M')  # Mixed
+        rooms_n = Room.objects.filter(room_status__contains='N')  # Normal
         return render(request, 'GestorSala/rooms.html', context={'role_class': role_class.get(), 'cold': rooms_c,
                                                                  'mixed': rooms_m, 'normal': rooms_n})
     else:
