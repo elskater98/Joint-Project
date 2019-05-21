@@ -175,10 +175,19 @@ def room_details(request, pk):
 
 
 def detalls_product(request, pk):
+    logged_user = request.user
     reference = pk
     products = Product.objects.filter(reference=reference)
+    role_class = UserProfile.objects.filter(user=logged_user)
 
-    return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference,})
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'operario':
+        manifest = Manifest.objects.get(pk=pk)
+        products = Product.objects.filter(manifest=manifest.reference)
+        return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference,})
+    else:
+        raise PermissionDenied
+
+
 
 
 def room_tareas(request, pk):
@@ -191,14 +200,6 @@ def room_tareas(request, pk):
         return render(request=request, template_name="details/room_tasks.html", context={'tareas': tareas, 'room': room})
     else:
         raise PermissionDenied
-
-
-def detalls_product(request, pk):
-    reference = pk
-    products = Product.objects.filter(reference=reference)
-
-    return render(request=request, template_name="GestorSala/productes_manifest.html",
-                  context={'products': products, 'reference': reference})
 
 
 def product_details(request, pk):
