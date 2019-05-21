@@ -1,7 +1,8 @@
 {% extends 'generic.html' %}
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 {% block informacio %}
-    {% if role_class.role == 'gestorsala' or role_class.role == 'admin' or role_class.role == 'operario'%}
         <div style="margin-top:20px" class="container">
             <div class="row">
                 <div class="col">
@@ -133,8 +134,6 @@
 
                     {% endfor %}
                 </div>
-
-            </div>
         </div>
-    {% endif %}
+        </div>
 {% endblock %}

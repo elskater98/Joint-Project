@@ -10,11 +10,9 @@ urlpatterns=[
 urlpatterns+=[
     path('manifiesto/entrada/',manifiesto_entrada,name='manifiesto_entrada'),
     path('manifiesto/salida/', manifiesto_salida, name='manifiesto_salida'),
-    path('manifiesto/<int:pk>',ManifiestoDetail.as_view(),name='manifiest')
-]
+    path('manifiesto/',api_request,name='api_request'),
+    path('manifiesto/<int:pk>', detalls_product, name='detalls_product'),
 
-#TAREAS
-urlpatterns+=[
     #VISTA
     path('tareas/mantenimiento', tareas_mantenimiento, name='tareas_mantenimiento'),
     path('tareas/operarios', tareas_operarios, name='tareas_operarios'),
@@ -41,4 +39,5 @@ urlpatterns+=[
     path('salas/<int:pk>', room_details, name='room_detail'),
     path('salas/<int:pk>/tareas', room_tareas, name='room_tareas'),
     path('salas/<int:pk>/products',product_details,name='product_detail'),
+
 ]
