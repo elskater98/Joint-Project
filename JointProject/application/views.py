@@ -1,8 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
-from django.shortcuts import redirect
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView,ListView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from application.forms import TaskForm
 from application.models import Container, Task
@@ -134,6 +133,20 @@ def manifiesto_entrada(request):
         raise PermissionDenied
 
 
+class ManifiestoDetail(DetailView):
+    template_name = 'details/manifest_detail.html'
+    model = Manifest
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala' or role == 'CEO':
+            return super(ManifiestoDetail, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+
+
 def manifiesto_salida(request):
 
     logged_user = request.user
@@ -145,16 +158,21 @@ def manifiesto_salida(request):
     else:
         raise PermissionDenied
 
+
 def room_details(request, pk):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
 
-    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'CEO' or role_class.get().role == 'mantenimiento' or role_class.get().role == 'operario':
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' \
+            or role_class.get().role == 'CEO' or role_class.get().role == 'mantenimiento' \
+            or role_class.get().role == 'operario':
         room = Room.objects.get(pk=pk)
         containers = Container.objects.filter(room=room)
-        return render(request=request, template_name="details/room_detail.html", context={'containers': containers,'room': room})
+        return render(request=request, template_name="details/room_detail.html",
+                      context={'containers': containers, 'room': room})
     else:
         raise PermissionDenied
+
 
 def detalls_product(request, pk):
     reference = pk
@@ -162,7 +180,28 @@ def detalls_product(request, pk):
 
     return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference,})
 
-def product_details (request, pk):
+
+def room_tareas(request, pk):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'CEO' or role_class.get().role == 'mantenimiento' or role_class.get().role == 'operario':
+        room = Room.objects.get(pk=pk)
+        tareas = Task.objects.filter(sala=room)
+        return render(request=request, template_name="details/room_tasks.html", context={'tareas': tareas, 'room': room})
+    else:
+        raise PermissionDenied
+
+
+def detalls_product(request, pk):
+    reference = pk
+    products = Product.objects.filter(reference=reference)
+
+    return render(request=request, template_name="GestorSala/productes_manifest.html",
+                  context={'products': products, 'reference': reference})
+
+
+def product_details(request, pk):
     logged_user = request.user
     reference = pk
     products = Product.objects.filter(reference=reference)
@@ -171,22 +210,42 @@ def product_details (request, pk):
     if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'operario':
         manifest = Manifest.objects.get(pk=pk)
         products = Product.objects.filter(manifest=manifest.reference)
-        return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference,})
+        return render(request=request, template_name="details/product_detail.html",
+                      context={'products': products, 'manifest': manifest})
     else:
         raise PermissionDenied
 
+
+def rooms(request):
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
+
+    if role_class.get().role == 'gestorsala' or role_class.get().role == 'mantenimiento' or \
+            role_class.get().role == 'admin' or role_class.get().role == 'operario':
+        rooms_c = Room.objects.filter(room_status__contains='F')  # Cold
+        rooms_m = Room.objects.filter(room_status__contains='M')  # Mixed
+        rooms_n = Room.objects.filter(room_status__contains='N')  # Normal
+        return render(request, 'GestorSala/rooms.html', context={'role_class': role_class.get(), 'cold': rooms_c,
+                                                                 'mixed': rooms_m, 'normal': rooms_n})
+
+    else:
+        raise PermissionDenied
+
+
+"""
 class ListRooms(ListView):
     queryset = Room.objects.all()
     context_object_name = 'rooms'
     template_name = 'GestorSala/rooms.html'
 
     def dispatch(self, request, *args, **kwargs):
-        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin
         role = self.request.user.profile.role
-        if role == 'admin' or role == 'gestorsala' or role == 'CEO' or role == 'operario' or role =='mantenimiento':
+        if role == 'admin' or role == 'gestorsala' or role == 'CEO' or role == 'operario' or role == 'mantenimiento':
             return super(ListRooms, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+"""
 
 
 def tareas_mantenimiento(request):
@@ -197,6 +256,7 @@ def tareas_mantenimiento(request):
         tasks_p = Task.objects.filter(status__contains='P').filter(t_status__contains='M').filter(ocultar='False')
         tasks_r = Task.objects.filter(status__contains='R').filter(t_status__contains='M').filter(ocultar='False')
         tasks_f = Task.objects.filter(status__contains='F').filter(t_status__contains='M').filter(ocultar='False')
+
         return render(request, 'GestorSala/tareas.html', context={'role_class':role_class.get(), 'tareas_p':tasks_p, 'tareas_r':tasks_r, 'tareas_f':tasks_f})
     else:
         raise PermissionDenied
@@ -326,6 +386,7 @@ class DeleteTask(LoginRequiredMixin,DeleteView):
         else:
             raise PermissionDenied
 
+
 class ChangeRoom(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task.html'
     model = Container
@@ -337,3 +398,4 @@ class ChangeRoom(LoginRequiredMixin,UpdateView):
             return super(ChangeRoom, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+
