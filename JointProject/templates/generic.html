@@ -47,8 +47,17 @@
                                                         <li class="nav-item">
                                                             <a class=" nav-link" href="{% url 'reports' %}"> Informes</a>
                                                         </li>
-                                                        <li class="nav-item">
-                                                        <a class=" nav-link" href="{% url 'economic_flow' %}"> Flujo Económico</a>
+                                                        <li class="nav-item dropdown">
+                                                        <a class=" nav-link dropdown-toggle" href="#"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Flujo Económico</a>
+                                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                        <a class="dropdown-item" href="{% url 'manifiesto_entrada' %}">Manifiestos entrada</a>
+                                                        <div class="dropdown-divider">
+                                                        </div>
+                                                            <a class="dropdown-item" href="{% url 'manifiesto_salida' %}">Manifiestos salida</a>
+                                                             <div class="dropdown-divider">
+                                                        </div>
+                                                        <a class="dropdown-item" href="{% url 'economic_flow' %}">Flujo econcómico</a>
+                                                        </div>
                                                         </li>
                                                     {% endif %}
                                                     <!-- Salas-->
