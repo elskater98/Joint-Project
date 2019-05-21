@@ -149,11 +149,10 @@ def detalls_sala(request, pk):
 
 
 def detalls_product(request, pk):
-    manifest = Manifest.objects.get(pk=pk)
-    products = Product.objects.filter(manifest=manifest.reference)
-    dictio = {'products': products,
-              'manifest': manifest}
-    return render(request=request, template_name="GestorSala/detalls_product.html", context=dictio)
+    reference = pk
+    products = Product.objects.filter(reference=reference)
+
+    return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference,})
 
 
 def salas(request):
