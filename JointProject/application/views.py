@@ -130,7 +130,7 @@ class TaskDetailView(LoginRequiredMixin,DetailView):
 class CreateTask(LoginRequiredMixin,CreateView):
     form_class = TaskForm
     model = Task
-    success_url = '/application/'
+
     template_name = 'create/create_task.html'
 
     def form_valid(self, form):
@@ -150,7 +150,6 @@ class UpdateTaskAll(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task.html'
     model = Task
     fields = '__all__'
-    success_url = '/application/'
 
     def dispatch(self, request, *args, **kwargs):
         role = self.request.user.profile.role
@@ -170,7 +169,6 @@ class UpdateAssignedTask(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task.html'
     model = Task
     fields = ['assigned']
-    success_url = '/application/'
 
     def dispatch(self, request, *args, **kwargs):
         role = self.request.user.profile.role
@@ -189,7 +187,7 @@ class UpdateAssignedTask(LoginRequiredMixin,UpdateView):
 class UpdateTaskStatus(LoginRequiredMixin, UpdateView):
     template_name = 'update/update_task.html'
     model = Task
-    success_url = '/application/' # segons el tipus de taska Operario o manteniment redireccionar al seu propi
+
 
     fields = ['status']
 
@@ -204,7 +202,6 @@ class UpdateTaskStatus(LoginRequiredMixin, UpdateView):
 class UpdateTasktoFinish(LoginRequiredMixin, UpdateView):
     template_name = 'update/update_task.html'
     model = Task
-    success_url = '/application/' # segons el tipus de taska Operario o manteniment redireccionar al seu propi
 
     fields = ['ocultar']
 
@@ -219,7 +216,7 @@ class UpdateTasktoFinish(LoginRequiredMixin, UpdateView):
 class DeleteTask(LoginRequiredMixin,DeleteView):
     template_name = 'delete/delete_task.html'
     model = Task
-    success_url = '/application/'
+
 
     def dispatch(self, request, *args, **kwargs):
         role = self.request.user.profile.role
