@@ -9,11 +9,12 @@ from django.urls import reverse
 
 class Manifest(models.Model):
     reference = models.CharField(max_length = 11, primary_key=True)
-    date = models.DateField(null=True, blank=True, help_text="Seleccione la fecha de entrada")
     fromLocation = models.CharField(max_length=64)
     toLocation = models.CharField(max_length=64)
     withdrawal = models.BooleanField()
     totalPackets = models.IntegerField()
+    creationDate = models.DateField(null=True, blank=True, help_text="Seleccione la fecha de creación")
+    revisionDate = models.DateField(null=True, blank=True, help_text="Seleccione la fecha de revisión")
 
     def __str__(self):
         return 'Ref: %s ( %s )' % (self.reference,self.date)

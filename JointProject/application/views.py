@@ -73,14 +73,19 @@ def api_request(request):
                                 elif key_product == "humidMin":
                                     humidMin = value_product
                                 elif key_product == "sla":
-                                    sla = value_product
+                                    sla = value_product[:10]
 
                             newproduct = Product(name=name, reference=reference, qty=qty, temp_max=tempMaxDegree, temp_min=tempMinDegree,
                                                   hum_max=humidMax, hum_min=humidMin, sla=sla)
 
                             newproduct.save()
+                    elif key == "creationDate":
+                        creationDate = value[:10]
+                    elif key == "revisionDate":
+                        revisionDate = value[:10]
 
-                newmanifest = Manifest(reference=ref, withdrawal=withdrawal, fromLocation=fromLocation, toLocation=toLocation, totalPackets=totalpackets)
+                newmanifest = Manifest(reference=ref, withdrawal=withdrawal, fromLocation=fromLocation, toLocation=toLocation,
+                                       totalPackets=totalpackets, creationDate=creationDate, revisionDate=revisionDate)
                 newmanifest.save()
 
                 product = Product.objects.filter(reference=reference)
