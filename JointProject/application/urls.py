@@ -9,7 +9,7 @@ urlpatterns=[
 urlpatterns+=[
     path('manifiesto/entrada/',manifiesto_entrada,name='manifiesto_entrada'),
     path('manifiesto/salida/', manifiesto_salida, name='manifiesto_salida'),
-    path('manifiest/',api_request,name='manifiest'),
+    path('manifiesto/',api_request,name='api_request'),
 ]
 
 #PRODUCTO
