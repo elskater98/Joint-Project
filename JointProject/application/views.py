@@ -224,3 +224,15 @@ class DeleteTask(LoginRequiredMixin,DeleteView):
             return super(DeleteTask, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+
+class ChangeRoom(LoginRequiredMixin,UpdateView):
+    template_name = 'update/update_task.html'
+    model = Container
+    fields = ['room']
+    success_url = '/application/salas'
+    def dispatch(self, request, *args, **kwargs):
+        role = self.request.user.profile.role
+        if role == 'admin' or role == 'gestorsala':
+            return super(ChangeRoom, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied

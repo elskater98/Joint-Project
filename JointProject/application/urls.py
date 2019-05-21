@@ -45,4 +45,5 @@ urlpatterns+=[
 urlpatterns+=[
     path('salas/', ListRooms.as_view(), name='rooms'),
     path('salas/<int:pk>', room_details, name='room_detail'),
+    path('container/update/<int:pk>', ChangeRoom.as_view(), name='change_room'),
 ]
