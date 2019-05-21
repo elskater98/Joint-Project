@@ -7,6 +7,7 @@ from .views import *
 urlpatterns = [
     path('',views.homepage, name='homepage'),
     path('manifiesto_entrada/', views.manifiesto_entrada, name='manifiesto_entrada'),
+    path('manifiesto_entrada/manifest', views.api_request, name='api_request'),
     path('manifiesto_salida/', views.manifiesto_salida, name='manifiesto_salida'),
     url(r'^salas/$',
         ListView.as_view(
@@ -44,6 +45,5 @@ urlpatterns = [
     #VISTA MANIFESTOS
     path('tarea/create_task', views.CreateTask.as_view(), name='task_create'),
 
-    # VISTA PRODUCTES
-    path('tarea/productes_manifest', views.api_request, name='api_request'),
+
 ]

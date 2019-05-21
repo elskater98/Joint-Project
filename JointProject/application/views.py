@@ -84,15 +84,16 @@ def api_request(request):
                 newmanifest.save()
 
                 product = Product.objects.filter(reference=reference)
+                manifest = Manifest.objects.filter(reference=reference)
 
-            return render(request, 'GestorSala/productes_manifest.html', context={'role_class': role_class.get(), 'products': product, 'manifest': reference})
+            return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest': manifest, 'role_class': role_class.get()})
         else:
-            product = []
-            return render(request, 'GestorSala/productes_manifest.html', context={'role_class': role_class.get(), 'products': product})
+            manifest = []
+            return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest': manifest, 'role_class': role_class.get()})
 
 
 class ApiReq (LoginRequiredMixin, DetailView):
-    template_name = 'GestorSala/productes_manifest.html'
+    template_name = 'GestorSala/detalls_product.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -110,9 +111,9 @@ class ApiReq (LoginRequiredMixin, DetailView):
 def homepage(request):
     # Obtencion rol del usuario
     logged_user = request.user
-    role_class = UserProfile.objects.filter(user = logged_user)
+    role_class = UserProfile.objects.filter(user=logged_user)
 
-    return render(request,'generic.html',context={'role_class':role_class.get()})
+    return render(request, 'generic.html', context={'role_class': role_class.get()})
 
 
 def manifiesto_entrada(request):
@@ -121,8 +122,8 @@ def manifiesto_entrada(request):
     role_class = UserProfile.objects.filter(user=logged_user)
 
     if role_class.get().role == 'gestorsala'or role_class.get().role == 'admin' or role_class.get().role == 'CEO':
-        manifest = Manifest.objects.all()
-        return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest':manifest,'role_class':role_class.get()})
+        manifest = Manifest.objects.filter(withdrawal=True)
+        return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest': manifest, 'role_class': role_class.get()})
     else:
         return redirect('/')
 
@@ -133,10 +134,11 @@ def manifiesto_salida(request):
     role_class = UserProfile.objects.filter(user=logged_user)
 
     if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'CEO':
-        manifest = Manifest.objects.filter(kind_manifest__contains='S')
-        return render(request, 'GestorSala/manifiesto_salida.html', context={'manifest':manifest,'role_class':role_class.get()})
+        manifest = Manifest.objects.filter(withdrawal=False)
+        return render(request, 'GestorSala/manifiesto_salida.html', context={'manifest': manifest, 'role_class': role_class.get()})
     else:
         return redirect('/')
+
 
 def detalls_sala(request, pk):
     room = Room.objects.get(pk=pk)
@@ -145,12 +147,14 @@ def detalls_sala(request, pk):
               'room': room}
     return render(request=request, template_name="GestorSala/detalls_sala.html", context=dictio)
 
-def detalls_product (request, pk):
+
+def detalls_product(request, pk):
     manifest = Manifest.objects.get(pk=pk)
     products = Product.objects.filter(manifest=manifest.reference)
     dictio = {'products': products,
               'manifest': manifest}
     return render(request=request, template_name="GestorSala/detalls_product.html", context=dictio)
+
 
 def salas(request):
     logged_user = request.user
