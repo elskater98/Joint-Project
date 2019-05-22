@@ -4,7 +4,6 @@ from django.conf.urls import url
 
 urlpatterns=[
     path('',homepage,name='homepage'),
-
     url(r'^manifiesto_entrada/(?P<pk>\d+)/$',
         detalls_product,
         name='detalls_product'),

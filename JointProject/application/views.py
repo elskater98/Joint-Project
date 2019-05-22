@@ -168,8 +168,7 @@ def room_details(request, pk):
             or role_class.get().role == 'operario':
         room = Room.objects.get(pk=pk)
         containers = Container.objects.filter(room=room)
-        return render(request=request, template_name="details/room_detail.html",
-                      context={'containers': containers, 'room': room})
+        return render(request=request, template_name="details/room_detail.html", context={'containers': containers, 'room': room})
     else:
         raise PermissionDenied
 
@@ -178,7 +177,7 @@ def detalls_product(request, pk):
     reference = pk
     products = Product.objects.filter(reference=reference)
 
-    return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference,})
+    return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference})
 
 
 def room_tareas(request, pk):
@@ -193,12 +192,6 @@ def room_tareas(request, pk):
         raise PermissionDenied
 
 
-def detalls_product(request, pk):
-    reference = pk
-    products = Product.objects.filter(reference=reference)
-
-    return render(request=request, template_name="GestorSala/productes_manifest.html",
-                  context={'products': products, 'reference': reference})
 
 
 def product_details(request, pk):
