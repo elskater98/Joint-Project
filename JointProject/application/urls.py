@@ -66,5 +66,6 @@ urlpatterns+=[
     path('tarea/delete_CEOf/<int:pk>', DeletefCEO.as_view(), name='CEOf_delete'),
     path('informes/', ceo_reports, name='reports'),
     path('analisis/', ceo_analysis, name='economic_flow'),
+    path('tarea/create_task_ceof/<int:pk>', createTaskCeo.as_view(), name='task_create_ceo')
 ]
 

@@ -109,7 +109,7 @@ class UserProfile(models.Model):
 
 class Task(models.Model):
     T_STATUS = (('M', 'Manteniment'), ('O', 'Operarios'))
-    t_status = models.CharField(max_length=1, choices=T_STATUS, blank=False, default='O')
+    t_status = models.CharField(max_length=1, choices=T_STATUS, blank=False, default='M')
 
     TASK_STATUS = (('P', 'Pendiente'), ('R', 'Realizando'), ('F', 'Finalizada'))
     status = models.CharField(max_length=1, choices=TASK_STATUS, blank=False, default='P')

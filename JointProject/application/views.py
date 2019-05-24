@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
-from application.forms import TaskForm
+from application.forms import TaskForm, TaskCEOForm
 from application.models import Container, Task
 from application.forms import TaskForm,CEOForm
 from .models import *
@@ -473,6 +473,7 @@ class DeletefCEO(LoginRequiredMixin,DeleteView):
     model = CEOf
     success_url = '/application/'
 
+
     def dispatch(self, request, *args, **kwargs):
         role = self.request.user.profile.role
         if role == 'admin' or role == 'CEO':
@@ -480,3 +481,22 @@ class DeletefCEO(LoginRequiredMixin,DeleteView):
         else:
             raise PermissionDenied
 
+class createTaskCeo(LoginRequiredMixin, CreateView):
+    form_class = TaskCEOForm
+    model = Task
+    template_name = 'create/task_ceo.html'
+
+
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(createTaskCeo, self).form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
+        role = self.request.user.profile.role
+
+        if role == 'admin' or role == 'CEO':
+            return super(createTaskCeo, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
