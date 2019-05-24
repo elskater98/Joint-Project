@@ -7,6 +7,10 @@ from application.models import Container, Task
 from application.forms import TaskForm,CEOForm
 from .models import *
 
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.urls import reverse
+
 import json
 import urllib.request
 from bs4 import BeautifulSoup
@@ -98,7 +102,7 @@ def api_request(request):
 
 
 class ApiReq (LoginRequiredMixin, DetailView):
-    template_name = 'GestorSala/detalls_product.html'
+    template_name = 'details/product_detail.html'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -307,9 +311,6 @@ class CreateTask(LoginRequiredMixin,CreateView):
 
     template_name = 'create/create_task.html'
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(CreateTask, self).form_valid(form)
 
     def dispatch(self, request, *args, **kwargs):
         """Solo puede acceder a la creacion de una tarea los usuarios con el rol gestor de sala o admin"""
@@ -319,6 +320,14 @@ class CreateTask(LoginRequiredMixin,CreateView):
         else:
             raise PermissionDenied
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        super().form_valid(form)
+        status = form.cleaned_data['t_status']
+        if status == 'O':
+            return redirect(reverse('tareas_operarios'))
+        else:
+            return redirect(reverse('tareas_mantenimiento'))
 
 class UpdateTaskAll(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task.html'
@@ -335,14 +344,25 @@ class UpdateTaskAll(LoginRequiredMixin,UpdateView):
     def get_context_data(self, **kwargs):
         """Solo se pueden selecionar usuarios con  el rol gestor de sala o operario"""
         context = super(UpdateTaskAll,self).get_context_data(**kwargs)
-        context['form'].fields['assigned'].queryset = UserProfile.objects.filter(role='gestorsala')| UserProfile.objects.filter(role='admin') |UserProfile.objects.filter(role='operario')| UserProfile.objects.filter(role='mantenimiento')
+        context['form'].fields['assigned'].queryset = UserProfile.objects.filter(role='operario')| UserProfile.objects.filter(role='mantenimiento')
         return context
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        super().form_valid(form)
+        status = form.cleaned_data['t_status']
+        if status == 'O':
+            return redirect(reverse('tareas_operarios'))
+        else:
+            return redirect(reverse('tareas_mantenimiento'))
+
+
 
 
 class UpdateAssignedTask(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task.html'
     model = Task
-    fields = ['assigned']
+    fields = ['t_status','assigned']
 
     def dispatch(self, request, *args, **kwargs):
         role = self.request.user.profile.role
@@ -358,12 +378,13 @@ class UpdateAssignedTask(LoginRequiredMixin,UpdateView):
         return context
 
 
+
+
 class UpdateTaskStatus(LoginRequiredMixin, UpdateView):
     template_name = 'update/update_task.html'
     model = Task
 
-
-    fields = ['status']
+    fields = ['t_status','status']
 
     def dispatch(self, request, *args, **kwargs):
         """Solo puede hacer uso de la clase aquellos usuarios con un rol disponible"""
@@ -373,11 +394,19 @@ class UpdateTaskStatus(LoginRequiredMixin, UpdateView):
         else:
             raise PermissionDenied
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        super().form_valid(form)
+        status = form.cleaned_data['t_status']
+        if status == 'O':
+            return redirect(reverse('tareas_operarios'))
+        else:
+            return redirect(reverse('tareas_mantenimiento'))
+
 class UpdateTasktoFinish(LoginRequiredMixin, UpdateView):
     template_name = 'update/update_task.html'
     model = Task
-
-    fields = ['ocultar']
+    fields = ['t_status','ocultar']
 
     def dispatch(self, request, *args, **kwargs):
         """Solo puede hacer uso de la clase aquellos usuarios con un rol disponible"""
@@ -386,6 +415,15 @@ class UpdateTasktoFinish(LoginRequiredMixin, UpdateView):
             return super(UpdateTasktoFinish, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        super().form_valid(form)
+        status = form.cleaned_data['t_status']
+        if status == 'O':
+            return redirect(reverse('tareas_operarios'))
+        else:
+            return redirect(reverse('tareas_mantenimiento'))
 
 class DeleteTask(LoginRequiredMixin,DeleteView):
     template_name = 'delete/delete_task.html'
