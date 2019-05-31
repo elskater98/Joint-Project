@@ -176,14 +176,6 @@ def room_details(request, pk):
     else:
         raise PermissionDenied
 
-
-def detalls_product(request, pk):
-    reference = pk
-    products = Product.objects.filter(reference=reference)
-
-    return render(request=request, template_name="GestorSala/productes_manifest.html", context={'products': products, 'reference': reference})
-
-
 def room_tareas(request, pk):
     logged_user = request.user
     role_class = UserProfile.objects.filter(user=logged_user)
@@ -196,19 +188,15 @@ def room_tareas(request, pk):
         raise PermissionDenied
 
 
-
-
 def product_details(request, pk):
     logged_user = request.user
-    reference = pk
-    products = Product.objects.filter(reference=reference)
     role_class = UserProfile.objects.filter(user=logged_user)
 
     if role_class.get().role == 'gestorsala' or role_class.get().role == 'admin' or role_class.get().role == 'operario':
-        manifest = Manifest.objects.get(pk=pk)
-        products = Product.objects.filter(manifest=manifest.reference)
+        reference = pk
+        products = Product.objects.filter(reference=reference)
         return render(request=request, template_name="details/product_detail.html",
-                      context={'products': products, 'manifest': manifest})
+                      context={'products': products, 'reference': reference})
     else:
         raise PermissionDenied
 
@@ -443,7 +431,7 @@ class ChangeRoom(LoginRequiredMixin,UpdateView):
     template_name = 'update/update_task.html'
     model = Container
     fields = ['room']
-    success_url = '/application/salas'
+    success_url = '/application/salas/'
     def dispatch(self, request, *args, **kwargs):
         role = self.request.user.profile.role
         if role == 'admin' or role == 'gestorsala':

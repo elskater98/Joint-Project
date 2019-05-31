@@ -4,9 +4,6 @@ from django.conf.urls import url
 
 urlpatterns=[
     path('',homepage,name='homepage'),
-    url(r'^manifiesto_entrada/(?P<pk>\d+)/$',
-        detalls_product,
-        name='detalls_product'),
 ]
 
 #MANIFIESTOS
@@ -20,11 +17,8 @@ urlpatterns+=[
 
 #PRODUCTO
 urlpatterns+=[
+    #DETAIL PRODUCT
     path('product/<int:pk>',product_details,name='product_detail'),
-
-
-    path('manifiesto/<int:pk>', detalls_product, name='detalls_product'),
-
 
     #VISTA
     path('tareas/mantenimiento', tareas_mantenimiento, name='tareas_mantenimiento'),

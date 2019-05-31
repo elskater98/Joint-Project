@@ -1,41 +1,42 @@
 {% extends 'generic.html' %}
-{% block title %}<title>Manifiesto Entrada</title>{% endblock %}
+{% block title %}<title>Productes Manifest</title>{% endblock %}
 
-{% block informacio %}
-    <div class="container">
+    {% block informacio %}
+        <div class="container text-center">
+            <div style="margin-bottom: 20px ">
+                <h2 align="center" style="color: #0d0d0d">Productes del Manifest: {{ reference }}</h2>
+            </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Quantitat</th>
+              <th scope="col">Temperatura màxima</th>
+              <th scope="col">Temperatura mínima</th>
+              <th scope="col">Humitat màxima</th>
+              <th scope="col">Humitat mínima</th>
+              <th scope="col">SLA</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for Product in products %}
+            <tr>
+                <td>  {{ Product.name}}  </td>
+                <td>  {{ Product.qty}}  </td>
+                <td>  {{ Product.temp_max}}  </td>
+                <td>  {{ Product.temp_min}}  </td>
+                <td>  {{ Product.hum_max}}  </td>
+                <td>  {{ Product.hum_min}}  </td>
+                <td>  {{ Product.sla}}  </td>
+            </tr>
 
-    </div>
+
+          </tbody>
+            {% empty %} Sorry, this manifest doesn't exist!
+            {% endfor %}
+        </table>
 
 
-    <div class="container text-center">
-        <div style="margin-bottom: 20px ">
-            <h2 align="center" style="color: #0d0d0d">Productes del Manifest: {{ manifest.reference }}</h2>
         </div>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Delivery Date</th>
-          <th scope="col">Level Agreement</th>
-          <th scope="col">Client</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for Product in products %}
-        <tr>
-            <td>  {{ Product.name}}  </td>
-            <td>  {{ Product.delivery_date}}  </td>
-            <td>  {{ Product.level_agreement}}  </td>
-            <td>  {{ Product.client}}  </td>
+    {% endblock %}
 
-        </tr>
-
-
-      </tbody>
-        {% empty %} Sorry, this manifest doesn't have products!
-        {% endfor %}
-    </table>
-
-
-    </div>
-{% endblock %}

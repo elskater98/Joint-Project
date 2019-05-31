@@ -37,7 +37,7 @@
           <tbody>
             {% for x in manifest %}
             <tr>
-                <td><a href="{%  url 'detalls_product' x.reference %}"> {{ x.reference}} </a></td>
+                <td><a href="{%  url 'product_detail' x.reference %}"> {{ x.reference}} </a></td>
                 <td>  {{ x.fromLocation}}  </td>
                 <td>  {{ x.toLocation}}  </td>
                 <td>  {{ x.creationDate}}  </td>
