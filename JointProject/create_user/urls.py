@@ -7,4 +7,5 @@ urlpatterns=[
     path('all_users',views.AllUsers,name='all_users'),
     path('update/<int:pk>',views.UpdateUser.as_view(),name='update_user'),
     path('update/role/<int:pk>',views.UpdateRole.as_view(),name='update_user_role'),
+    path('delete/<int:pk>',views.DeleteUser.as_view(),name='delete_user'),
 ]

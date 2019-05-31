@@ -12,6 +12,7 @@
                 <h3>{{ operario }}</h3>
                 <a href="{%  url  'update_user' operario.pk %}">Editar</a>
                 <a href="{%  url  'update_user_role' operario.pk %}">Cambiar Rol</a>
+                <a href="{%  url  'delete_user' operario.pk %}">Eliminar</a>
                 {% endfor %}
             </div>
 
@@ -21,6 +22,7 @@
                 <h3>{{ m }}</h3>
                     <a href="{%  url  'update_user' m.pk %}">Editar</a>
                     <a href="{%  url  'update_user_role' m.pk %}">Cambiar Rol</a>
+                    <a href="{%  url  'delete_user' m.pk %}">Eliminar</a>
                 {% endfor %}
             </div>
 
@@ -30,6 +32,7 @@
                 <h3>{{ g }}</h3>
                     <a href="{%  url  'update_user' g.pk %}">Editar</a>
                     <a href="{%  url  'update_user_role' g.pk %}">Cambiar Rol</a>
+                    <a href="{%  url  'delete_user' g.pk %}">Eliminar</a>
                 {% endfor %}
             </div>
 
@@ -39,6 +42,7 @@
                     <h3>{{ c }}</h3>
                         <a href="{%  url  'update_user' c.pk %}">Editar</a>
                         <a href="{%  url  'update_user_role' c.pk %}">Cambiar Rol</a>
+                        <a href="{%  url  'delete_user' c.pk %}">Eliminar</a>
                     {% endfor %}
                 </div>
 
