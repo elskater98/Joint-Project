@@ -108,8 +108,9 @@
                                                 {% endif %}
                                                 <!--CEO-->
                                                 {% if role_class.role == 'CEO' or role_class.role == 'admin' %}
-
                                                      <a  class=" nav-link"  href="{% url 'formCEO_list' %}">Formulari</a>
+                                                     <a  class=" nav-link"  href="{% url 'singup' %}">Signup</a>
+                                                    <a  class=" nav-link"  href="{% url 'all_users' %}">Usuarios</a>
 
                                                 {% endif %}
 

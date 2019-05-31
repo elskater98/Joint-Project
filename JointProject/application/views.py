@@ -505,4 +505,3 @@ class DeletefCEO(LoginRequiredMixin,DeleteView):
             return super(DeletefCEO, self).dispatch(request, *args, **kwargs)
         else:
             raise PermissionDenied
-

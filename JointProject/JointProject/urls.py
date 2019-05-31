@@ -23,4 +23,5 @@ urlpatterns = [
     path('application/', include('application.urls')),
     path('', views.LoginView.as_view(), name='login'),
     path('accounts/logout/', views.LogoutView.as_view(), name='logout'),
+    path('own_user/',include('create_user.urls')),
 ]

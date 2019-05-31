@@ -1,0 +1,15 @@
+{% extends 'generic.html' %}
+
+{% block Title %}<title>SIGN UP</title>{% endblock %}
+
+{% block informacio %}
+    {% if user.profile.role == 'CEO' or user.profile.role == 'admin' %}
+        <div class="container" align="center"  style="margin-top: 20px">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign up</button>
+      </form>
+        </div>
+    {% endif %}
+{% endblock %}

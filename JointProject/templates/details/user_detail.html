@@ -1,0 +1,57 @@
+{% extends 'generic.html' %}
+{% block title %}<title>User detail</title>{% endblock %}
+
+{% block informacio %}
+    {% if user.profile.role == 'admin' or user.profile.role == 'admin' %}
+        <div class="container" align="center" style="margin-top: 2.5%">
+
+        <div class="row">
+            <div class="col" >
+                <h4 align="center" style="margin-bottom: 10%"><strong>Operarios</strong></h4>
+                {% for operario in operarios %}
+                <h3>{{ operario }}</h3>
+                {% endfor %}
+            </div>
+
+            <div class="col">
+                <h4 align="center" style="margin-bottom: 10%"><strong>Mantenimiento</strong></h4>
+                {% for m in mantenimiento %}
+                <h3>{{ m }}</h3>
+                {% endfor %}
+            </div>
+
+            <div class="col">
+                <h4 align="center" style="margin-bottom: 10%"><strong>Gestor de Sala</strong> </h4>
+                {% for g in gestorsala %}
+                <h3>{{ g }}</h3>
+                {% endfor %}
+            </div>
+
+            <div class="col">
+                    <h4 align="center" style="margin-bottom: 10%"><strong>CEO</strong></h4>
+                    {% for c in CEO %}
+                    <h3>{{ c }}</h3>
+                    {% endfor %}
+                </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    {% else %}
+        <h1>ERROR 403 - SIN PERMISOS</h1>
+    {% endif%}
+{% endblock %}
