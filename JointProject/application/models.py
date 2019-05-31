@@ -90,7 +90,7 @@ class Location (models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name="profile",on_delete=models.SET_DEFAULT,default=0)
+    user = models.OneToOneField(User, related_name="profile",on_delete=models.CASCADE,default=0)
     ROLE_STATUS =(('admin','admin'),('gestorsala','gestor de sala'),('operario','operario'),('mantenimiento','operario de mantenimiento'),('CEO','CEO'))
     role = models.CharField(max_length=32, choices=ROLE_STATUS, blank=False, default='operario') #Null true and blank true ?¿
 
