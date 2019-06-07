@@ -16,34 +16,37 @@ import urllib.request
 from bs4 import BeautifulSoup
 
 
+list_manifests = []
 def api_request(request):
     # https: // stackoverflow.com / questions / 44239822 / urllib - request - urlopenurl -with-authentication / 44239906
-        logged_user = request.user
-        role_class = UserProfile.objects.filter(user=logged_user)
+    logged_user = request.user
+    role_class = UserProfile.objects.filter(user=logged_user)
 
-        reference = request.POST.get('search', '')
+    reference = request.POST.get('search', '')
 
         # print(referencia)
     # if role_class.get().role == 'gestorsala':
         # create a password manager
-        password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+    password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
 
-        # Add the username and password.
-        # If we knew the realm, we could use it instead of None.
-        top_level_url = "https://ourfarms.herokuapp.com/apiRest/REF/?ref="+reference
-        password_mgr.add_password(None, top_level_url, "GR2", "gr2134567890")
+    # Add the username and password.
+    # If we knew the realm, we could use it instead of None.
+    top_level_url = "https://ourfarms.herokuapp.com/apiRest/REF/?ref="+reference
+    password_mgr.add_password(None, top_level_url, "GR2", "gr2134567890")
 
-        handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
+    handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
 
         # create "opener" (OpenerDirector instance)
-        opener = urllib.request.build_opener(handler)
+    opener = urllib.request.build_opener(handler)
 
         # use the opener to fetch a URL
-        products = opener.open("https://ourfarms.herokuapp.com/apiRest/REF/?ref="+reference)
+    products = opener.open("https://ourfarms.herokuapp.com/apiRest/REF/?ref="+reference)
 
-        soup = BeautifulSoup(products.read(), 'html.parser')
-        data = json.loads(soup.decode("utf-8"))   # items -> type list data is a list of the manifests
+    soup = BeautifulSoup(products.read(), 'html.parser')
+    data = json.loads(soup.decode("utf-8"))   # items -> type list data is a list of the manifests
 
+    if reference not in list_manifests:
+        list_manifests.append(reference)
         if data:  # comproves si la llista NO es buida, si ho es, es que la ref no es correcta
             # print(type(data))
             for manifest in data:
@@ -99,7 +102,9 @@ def api_request(request):
         else:
             manifest = []
             return render(request, 'GestorSala/manifiesto_entrada.html', context={'manifest': manifest, 'role_class': role_class.get()})
+    else:
 
+        return render(request, 'GestorSala/manifiesto_entrada.html',context={'role_class': role_class.get()})
 
 class ApiReq (LoginRequiredMixin, DetailView):
     template_name = 'details/product_detail.html'
