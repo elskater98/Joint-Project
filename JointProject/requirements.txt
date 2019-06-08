@@ -1,6 +1,7 @@
 beautifulsoup4==4.7.1
 bs4==0.0.1
 Django==2.1.7
+Pillow==6.0.0
 pytz==2019.1
 soupsieve==1.9.1
 urllib3==1.25.2

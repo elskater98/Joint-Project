@@ -13,6 +13,7 @@ admin.site.register(Location)
 admin.site.register(UserProfile)
 admin.site.register(Task)
 admin.site.register(CEOf)
+admin.site.register(Documents)
 
 
 

@@ -141,3 +141,7 @@ class CEOf(models.Model):
     def get_absolute_url(self):
         return reverse('formulari_detail', args=[str(self.id)])
 
+class Documents(models.Model):
+    #excel= models.FileField()
+    graph = models.ImageField(default="default.png", null=False)
+    info = models.CharField(max_length=64)
