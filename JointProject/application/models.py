@@ -142,6 +142,6 @@ class CEOf(models.Model):
         return reverse('formulari_detail', args=[str(self.id)])
 
 class Documents(models.Model):
-    #excel= models.FileField()
-    graph = models.ImageField(default="default.png", null=False)
+    excel= models.FileField(upload_to='excel/',default='default-image.png',null=False)
+    graph = models.ImageField(upload_to='graph/',default='default-image.png', null=False)
     info = models.CharField(max_length=64)
