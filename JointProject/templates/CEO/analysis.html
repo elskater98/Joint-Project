@@ -2,4 +2,12 @@
 
 {% block informacio %}
 
+    {% for x in doc %}
+        <div>
+        <img style="margin-bottom: 4%" src="{{ x.graph.url }}" width="750" alt="{{ x.graph.url }}">
+        <h7>{{ x.info }}</h7>
+        </div>
+
+    {% endfor %}
+
 {% endblock %}

@@ -280,7 +280,8 @@ def ceo_analysis(request):
     role_class = UserProfile.objects.filter(user=logged_user)
 
     if role_class.get().role == 'CEO' or role_class.get().role == 'admin':
-        return render(request, 'CEO/analysis.html', context={'role_class': role_class.get()})
+        doc = Documents.objects.all()
+        return render(request, 'CEO/analysis.html', context={'role_class': role_class.get(),'doc':doc})
     else:
         raise PermissionDenied
 
