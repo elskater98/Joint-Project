@@ -10,9 +10,11 @@
 </h1>
 -->
 {% block informacio %}
-    <div style="margin-top:20px" class="container">
+    <div class="container">
         <div class="row">
             <div class="col">
+
+                </br>
                 <h4 align="center">Frío</h4>
                 {% for room in cold %}
                         <div>
@@ -21,12 +23,16 @@
                                 <h6><strong>Temperatura: </strong> {{ room.temperatura }}ºC  <br/>
                                 <strong>Medidas: </strong> {{ room.ancho}}m x {{room.largo}}m <br/>
                                 <strong>Espacio Total: </strong> {{ room.espacio_Total}} <br/>
-                                <strong>Espacio Ocupado: </strong> {{ room.espacio_Ocupado}}</h6></a>
+                                <strong>Disponibilidad: </strong> {{ room.disponible}}</h6></a>
                         </div>
+                        </br>
                 {% endfor %}
             </div>
 
             <div class="col">
+
+                </br>
+
                 <h4 align="center">Mixto</h4>
                     {% for room in mixed %}
                         <div>
@@ -37,10 +43,13 @@
                                 <strong>Espacio Total: </strong> {{ room.espacio_Total}} <br/>
                                 <strong>Espacio Ocupado: </strong> {{ room.espacio_Ocupado}}</h6></a>
                         </div>
+                        </br>
+
                     {% endfor %}
             </div>
 
             <div class="col">
+                </br>
                 <h4 align="center">Normal</h4>
                     {% for room in normal %}
                         <div>
@@ -51,6 +60,8 @@
                                 <strong>Espacio Total: </strong> {{ room.espacio_Total}} <br/>
                                 <strong>Espacio Ocupado: </strong> {{ room.espacio_Ocupado}}</h6></a>
                         </div>
+                        </br>
+
                     {% endfor %}
             </div>
         </div>

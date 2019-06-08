@@ -9,15 +9,15 @@
 
     <div class="container text-center">
         <div style="margin-bottom: 20px ">
-            <h2 align="center" style="color: #0d0d0d">TASQUES DE LA SALA {{ room.nombre }}</h2>
+            <h2 align="center" style="color: #0d0d0d">TAREAS DE LA SALA {{ room.nombre }}</h2>
         </div>
 
       <table class="table table-bordered">
         <thead>
         <tr>
-          <th scope="col">Títol</th>
-          <th scope="col">Descripció</th>
-          <th scope="col">Treballador assignat</th>
+          <th scope="col">Título</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Trabajador assignado</th>
         </tr>
       </thead>
       <tbody>
@@ -32,7 +32,7 @@
 
       </tbody>
 
-        {% empty %} This room doesn't have asigned tasks!
+        {% empty %} Esta sala no tiene tareas asignadas!
         {% endfor %}
     </table>
 

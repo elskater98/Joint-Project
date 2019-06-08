@@ -4,24 +4,24 @@
 {% block informacio %}
     <br/>
     <div class="container">
-        <h5 align="left"><a href="{%  url  'room_tareas' room.pk %}"><strong> TASQUES ASSIGNADES </strong></a></h5>
+        <h5 align="left"><a href="{%  url  'room_tareas' room.pk %}"><strong> TAREAS ASIGNADAS </strong></a></h5>
     </div>
 
 
     <div class="container text-center">
         <div style="margin-bottom: 20px ">
-            <h2 align="center" style="color: #0d0d0d">Informació de {{ room.nombre }}</h2>
+            <h2 align="center" style="color: #0d0d0d">Información de {{ room.nombre }}</h2>
         </div>
 
 
          <table class="table table-bordered">
       <thead>
         <tr>
-          <th scope="col">Temperature</th>
-          <th scope="col">Width</th>
-          <th scope="col">Length</th>
-          <th scope="col">Total Space</th>
-          <th scope="col">Occupied Space</th>
+          <th scope="col">Temperatura</th>
+          <th scope="col">Ancho</th>
+          <th scope="col">Largo</th>
+          <th scope="col">Espacio Total</th>
+          <th scope="col">Espacio Ocupado</th>
         </tr>
       </thead>
       <tbody>
@@ -59,7 +59,7 @@
 
       </tbody>
 
-        {% empty %} This room doesn't have containers!
+        {% empty %} Esta sala no tiene contenedores asignadas!
         {% endfor %}
     </table>
 

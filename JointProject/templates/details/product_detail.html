@@ -1,20 +1,20 @@
 {% extends 'generic.html' %}
-{% block title %}<title>Productes Manifest</title>{% endblock %}
+{% block title %}<title>Productos Manifiesto</title>{% endblock %}
 
     {% block informacio %}
         <div class="container text-center">
             <div style="margin-bottom: 20px ">
-                <h2 align="center" style="color: #0d0d0d">Productes del Manifest: {{ reference }}</h2>
+                <h2 align="center" style="color: #0d0d0d">Productos del Manifiesto: {{ reference }}</h2>
             </div>
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Quantitat</th>
-              <th scope="col">Temperatura màxima</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Cuantidad</th>
+              <th scope="col">Temperatura máxima</th>
               <th scope="col">Temperatura mínima</th>
-              <th scope="col">Humitat màxima</th>
-              <th scope="col">Humitat mínima</th>
+              <th scope="col">Humedad máxima</th>
+              <th scope="col">Humidad mínima</th>
               <th scope="col">SLA</th>
             </tr>
           </thead>
@@ -32,7 +32,7 @@
 
 
           </tbody>
-            {% empty %} Sorry, this manifest doesn't exist!
+            {% empty %} Lo sentimos, este manifiesto no existe!
             {% endfor %}
         </table>
 
